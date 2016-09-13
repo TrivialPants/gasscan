@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "922020969662",
+    "firebase_url": "https://gas-scan.firebaseio.com",
+    "project_id": "gas-scan",
+    "storage_bucket": "gas-scan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922020969662:android:4fba25a1c32fe0c6",
+        "android_client_info": {
+          "package_name": "com.example.tanner.gasscan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "922020969662-2dpjpfke4i3eclpjnhi4th7u6ba81oij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tanner.gasscan",
+            "certificate_hash": "97AD11DD0F8CC67CB61BA2F5D0ECF2A3E06700F1"
+          }
+        },
+        {
+          "client_id": "922020969662-vl56adpm6n4ubajas9jnkjcikqtvau4k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkJxckbpX-8IizQxF1qrvNwPp_dpTGh20"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "922020969662-vl56adpm6n4ubajas9jnkjcikqtvau4k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
