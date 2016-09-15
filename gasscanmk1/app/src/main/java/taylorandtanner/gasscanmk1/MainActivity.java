@@ -1,5 +1,7 @@
 package taylorandtanner.gasscanmk1;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.res.Configuration;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button next = (Button) findViewById(R.id.button2);
+        next.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Intent myIntent = new Intent(view.getContext(), OcrCaptureActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
         mDrawerList = (ListView)findViewById(R.id.navList);mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
 

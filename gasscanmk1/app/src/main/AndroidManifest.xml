@@ -2,10 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="taylorandtanner.gasscanmk1">
 
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- Use below for sure: for OCR -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
 
     <application
         android:debuggable="true"
@@ -29,11 +33,11 @@
         <activity
             android:name=".OcrCaptureActivity"
             android:label="@string/title_activity_ocr"><!-- com.google.android.gms.samples.vision.ocrreader.OcrCaptureActivity-->
-            <!-- android:label="Read Text">
+            <!-- android:label="Read Text"> -->
              <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
         </activity>
 
 
