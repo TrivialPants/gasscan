@@ -49,6 +49,8 @@ import taylorandtanner.gasscanmk1.ui.camera.GraphicOverlay;
 
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -359,7 +361,8 @@ public final class OcrCaptureActivity extends AppCompatActivity {
             if (text != null && text.getValue() != null) {
                 Log.d(TAG, "text data is being spoken! " + text.getValue());
                 // Speak the string.
-                tts.speak(text.getValue(), TextToSpeech.QUEUE_ADD, null, "DEFAULT");
+                //tts.speak(text.getValue(), TextToSpeech.QUEUE_ADD, null, "DEFAULT");
+
             }
             else {
                 Log.d(TAG, "text data is null");
@@ -370,6 +373,10 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         }
         return text != null;
     }
+
+
+
+
 
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
 
