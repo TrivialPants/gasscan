@@ -26,15 +26,6 @@
         android:clickable="true"
         android:onClick="testWriteDatabase"/>
 
-    <ImageButton
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:id="@+id/imageButton"
-        android:background="@drawable/ic_list_black_48dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false" />
-
 
     <android.support.v4.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -45,7 +36,7 @@
         android:layout_above="@+id/Scan"
         android:layout_alignRight="@+id/Scan"
         android:layout_alignEnd="@+id/Scan"
-        android:layout_alignTop="@+id/Scan">
+        android:layout_alignTop="@+id/button2">
 
         <ListView
             android:id="@+id/navList"
@@ -60,22 +51,23 @@
         android:layout_height="wrap_content"
         android:text="@string/mpgText"
         android:id="@+id/mpg"
-        android:layout_below="@+id/imageButton"
-        android:layout_toRightOf="@+id/imageButton"
-        android:layout_marginTop="82dp"
         android:editable="true"
-        android:textSize="70sp" />
+        android:textSize="70sp"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/button2"
+        android:layout_alignLeft="@+id/miles"
+        android:layout_alignStart="@+id/miles" />"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/milesText"
         android:id="@+id/miles"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/mpg"
-        android:layout_alignStart="@+id/mpg"
         android:editable="true"
-        android:textSize="70sp" />
+        android:textSize="70sp"
+        android:layout_below="@+id/mpg"
+        android:layout_alignLeft="@+id/gallons"
+        android:layout_alignStart="@+id/gallons" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -85,8 +77,10 @@
         android:editable="true"
         android:textSize="70sp"
         android:layout_below="@+id/miles"
-        android:layout_alignLeft="@+id/miles"
-        android:layout_alignStart="@+id/miles" />
+        android:layout_toLeftOf="@+id/button2"
+        android:layout_toStartOf="@+id/button2"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,11 +94,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="miles"
+        android:text="@string/miles"
         android:id="@+id/textView5"
+        android:layout_alignBaseline="@+id/mpg"
         android:layout_alignBottom="@+id/mpg"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_alignStart="@+id/textView4" />
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_alignEnd="@+id/textView5"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,7 +112,8 @@
         android:editable="false"
         android:layout_alignBottom="@+id/miles"
         android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button" />
+        android:layout_alignEnd="@+id/button"
+        android:layout_alignStart="@+id/textView6" />
 
     <Button
         android:textSize="25dp"
@@ -134,7 +133,6 @@
         android:layout_height="wrap_content"
         android:text="Test OCR"
         android:id="@+id/button2"
-        android:layout_alignBottom="@+id/imageButton"
         android:layout_alignRight="@+id/textView4"
         android:layout_alignEnd="@+id/textView4" />
 

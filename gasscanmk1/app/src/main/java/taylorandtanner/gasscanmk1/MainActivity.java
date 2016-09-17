@@ -57,14 +57,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
+        final String[] osArray = { "Change User", "Settings", "View Logs", "Option4", "Option5" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
+
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+                switch(position) {
+                    case 0:
+                      Intent myIntent = new Intent(view.getContext(), SignInActivity.class);
+                      startActivityForResult(myIntent, 0);
+                      break;
+                    case 1:
+                         myIntent = new Intent(view.getContext(), Settings.class);
+                        startActivityForResult(myIntent, 0);
+                        break;
+                    case 2:
+                       myIntent = new Intent(view.getContext(), ViewLogs.class);
+                       startActivityForResult(myIntent, 0);
+                       break;
+                    default:
+                        return;
+                }
             }
         });
     }
@@ -75,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Navigation!");
+                getSupportActionBar().setTitle("Options");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
@@ -99,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+            //noinspection SimplifiableIfStatement
         //if (id == R.id.action_settings) {
         //  return true;
         //}

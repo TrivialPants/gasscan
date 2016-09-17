@@ -2,18 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="taylorandtanner.gasscanmk1">
 
-
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- Use below for sure: for OCR -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
-        android:debuggable="true"
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -27,20 +27,21 @@
         </activity>
         <activity
             android:name=".SignInActivity"
-            android:label="@string/title_activity_sign_in">
-        </activity>
-
+            android:label="@string/title_activity_sign_in" />
         <activity
             android:name=".OcrCaptureActivity"
-            android:label="@string/title_activity_ocr"><!-- com.google.android.gms.samples.vision.ocrreader.OcrCaptureActivity-->
+            android:label="@string/title_activity_ocr">
+
+            <!-- com.google.android.gms.samples.vision.ocrreader.OcrCaptureActivity -->
             <!-- android:label="Read Text"> -->
-             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
+        <activity android:name=".Settings" />
+        <activity android:name=".ViewLogs"></activity>
     </application>
 
 </manifest>

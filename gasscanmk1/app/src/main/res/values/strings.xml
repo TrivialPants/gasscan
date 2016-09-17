@@ -27,7 +27,7 @@
     <string name="mpgText">0</string>
     <string name="gallonsText">0</string>
 
- <!-- Strings related to OCR (google vision tutorial) -->
+    <!-- Strings related to OCR (google vision tutorial) -->
     <string name="ok">OK</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
@@ -41,6 +41,8 @@
     <string name="ocr_failure">No text captured</string>
     <string name="ocr_error">"Error reading text: %1$s"</string>
     <string name="title_activity_ocr">"Read Text"</string>
+    <string name="miles">miles</string>
+    <string name="title_activity_settings">Settings</string>
 
 
 </resources>
