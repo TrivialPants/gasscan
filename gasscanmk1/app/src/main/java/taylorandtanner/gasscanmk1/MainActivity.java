@@ -155,9 +155,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void testReadDatabase(View view) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mpgRef = database.getReference("mpg");
-        DatabaseReference milesRef = database.getReference("miles");
-        DatabaseReference gallonsRef = database.getReference("gallons");
+        DatabaseReference mpgRef = database.getReference("UID/MainData/Dashboard/Vehicle1/mpg");
+        DatabaseReference milesRef = database.getReference("UID/MainData/Dashboard/Vehicle1/miles");
+        DatabaseReference gallonsRef = database.getReference("UID/MainData/Dashboard/Vehicle1/gallons");
 
         final TextView milesTextView = (TextView) findViewById(R.id.miles);
         // Read from the database

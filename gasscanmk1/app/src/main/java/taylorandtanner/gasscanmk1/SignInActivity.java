@@ -36,6 +36,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -137,6 +139,12 @@ public class SignInActivity extends AppCompatActivity implements
                         }
                     }
                 });
+    }
+
+    public void signOut(View view) {
+       FirebaseAuth.getInstance().signOut();  //Sign the user out on button click
+        Intent myIntent = new Intent(view.getContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
     }
 
 }
