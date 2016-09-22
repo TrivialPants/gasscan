@@ -43,7 +43,8 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_gravity="left|start"
-            android:background="#fff6f6"/>
+            android:background="#fff6f6"
+            android:choiceMode="singleChoice" />
     </android.support.v4.widget.DrawerLayout>
 
     <TextView
