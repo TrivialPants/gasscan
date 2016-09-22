@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "929917862620-b4h0opkvvnib20i10rudgl4edmic85et.apps.googleusercontent.com",
+          "client_id": "929917862620-o84ftgs2o18iajsu3h49kj2lde6kj185.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "taylorandtanner.gasscanmk1",
-            "certificate_hash": "97AD11DD0F8CC67CB61BA2F5D0ECF2A3E06700F1"
+            "certificate_hash": "4C32F06E6EF067AC1F52FA2E9EFC63BF9EB29948"
+          }
+        },
+        {
+          "client_id": "929917862620-ta1b2okbv6c7k4g4s5ddq554rkossrf2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "taylorandtanner.gasscanmk1",
+            "certificate_hash": "97AD11DD0F8CC67CB61BA2F5D1ECF2A3E06700F1"
           }
         },
         {

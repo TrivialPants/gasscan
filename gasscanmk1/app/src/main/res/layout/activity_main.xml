@@ -100,7 +100,6 @@
         android:layout_alignBottom="@+id/mpg"
         android:layout_alignLeft="@+id/textView6"
         android:layout_alignStart="@+id/textView6"
-        android:layout_alignEnd="@+id/textView5"
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false" />
 
@@ -113,7 +112,7 @@
         android:layout_alignBottom="@+id/miles"
         android:layout_alignRight="@+id/button"
         android:layout_alignEnd="@+id/button"
-        android:layout_alignStart="@+id/textView6" />
+        />
 
     <Button
         android:textSize="25dp"
