@@ -1,6 +1,13 @@
 package taylorandtanner.gasscanmk1;
 
+<<<<<<< HEAD
 
+=======
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+>>>>>>> 6ae71d0813e4fbc856f9574b00e6be928f8b5373
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
