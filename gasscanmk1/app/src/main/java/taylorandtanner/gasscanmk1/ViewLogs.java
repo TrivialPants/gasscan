@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+//comment so i can commit
 
 public class ViewLogs extends AppCompatActivity {
     private static final String TAG = "ViewLogs";
