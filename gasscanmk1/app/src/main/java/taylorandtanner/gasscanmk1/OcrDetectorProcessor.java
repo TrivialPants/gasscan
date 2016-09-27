@@ -52,10 +52,10 @@ public class OcrDetectorProcessor implements Detector.Processor<TextBlock> {
             if (item != null && item.getValue() != null) {
                 Log.d("OcrDetectorProcessor", "Text detected! " + item.getValue());
                 // Write a message to the database (firebase)
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("message");
+               // FirebaseDatabase database = FirebaseDatabase.getInstance();
+               // DatabaseReference myRef = database.getReference("message");
 
-                myRef.setValue(item.getValue());
+               // myRef.setValue(item.getValue());
             }
             OcrGraphic graphic = new OcrGraphic(mGraphicOverlay, item);
             mGraphicOverlay.add(graphic);

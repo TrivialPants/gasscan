@@ -40,8 +40,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Settings" />
-
-        <activity android:name=".ViewLogs"></activity>
+        <activity android:name=".ViewLogs" />
+        <activity android:name=".ImageSelect"
+                  android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
