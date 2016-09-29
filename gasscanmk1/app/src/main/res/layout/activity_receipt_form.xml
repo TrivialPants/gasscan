@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="taylorandtanner.gasscanmk1.receiptForm">
+
+
+
+    <android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <ListView
+            android:id="@+id/navList"
+            android:layout_width="200dp"
+            android:layout_height="250dp"
+            android:layout_gravity="left|start"
+            android:background="#ff9d44" />
+    </android.support.v4.widget.DrawerLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Price"
+        android:id="@+id/receiptPrice"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="41dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gallons"
+        android:id="@+id/receiptGallons"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/receiptPrice"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Price/gal"
+        android:id="@+id/receiptPriceGal"
+        android:layout_below="@+id/receiptGallons"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="44dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Date"
+        android:id="@+id/receiptDate"
+        android:layout_below="@+id/receiptPriceGal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_alignBottom="@+id/receiptPriceGal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gas Station"
+        android:id="@+id/receiptGasStation"
+        android:layout_below="@+id/receiptDate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="42dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="MILES"
+        android:id="@+id/receiptMiles"
+        android:layout_below="@+id/receiptGasStation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="52dp"
+        android:textColor="#cb2020" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/receiptPriceText"
+        android:layout_above="@+id/receiptGallons"
+        android:layout_alignRight="@+id/drawer_layout"
+        android:layout_alignEnd="@+id/drawer_layout" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/receiptGallonsText"
+        android:layout_alignBottom="@+id/receiptGallons"
+        android:layout_alignLeft="@+id/receiptPriceText"
+        android:layout_alignStart="@+id/receiptPriceText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/receiptPriceGalText"
+        android:layout_alignBottom="@+id/receiptPriceGal"
+        android:layout_alignLeft="@+id/receiptGallonsText"
+        android:layout_alignStart="@+id/receiptGallonsText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/receiptGasStationText"
+        android:layout_above="@+id/receiptMiles"
+        android:layout_alignRight="@+id/drawer_layout"
+        android:layout_alignEnd="@+id/drawer_layout"
+        android:layout_toRightOf="@+id/receiptGasStation"
+        android:layout_toEndOf="@+id/receiptGasStation" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/receiptMilesText"
+        android:layout_alignTop="@+id/receiptMiles"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accept Receipt"
+        android:id="@+id/receiptAcceptButton"
+        android:layout_alignBottom="@+id/drawer_layout"
+        android:layout_marginBottom="88dp"
+        android:layout_alignRight="@+id/receiptMilesText"
+        android:layout_alignEnd="@+id/receiptMilesText"
+        android:layout_toRightOf="@+id/receiptGallons"
+        android:layout_toEndOf="@+id/receiptGallons"
+        android:background="#9eca80" />
+
+</RelativeLayout>

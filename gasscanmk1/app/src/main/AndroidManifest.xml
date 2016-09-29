@@ -41,8 +41,10 @@
         </activity>
         <activity android:name=".Settings" />
         <activity android:name=".ViewLogs" />
-        <activity android:name=".ImageSelect"
-                  android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ImageSelect"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".receiptForm"></activity>
     </application>
 
 </manifest>
