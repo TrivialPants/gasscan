@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'GasScanKey'
             keyPassword 'android'
-            storeFile file('F:/AndroidStudioProjects/gasscan/gasscanmk1/keystores/android.jks')
+            storeFile file('C:/Users/Taylor.coomer/Documents/GitHub/gasscan/gasscanmk1/keystores/android.jks')
             storePassword 'android'
         }
     }

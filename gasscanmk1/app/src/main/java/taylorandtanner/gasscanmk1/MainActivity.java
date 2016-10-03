@@ -21,6 +21,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -70,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null)
+                Log.d(TAG, "Not Updating because user not signed in - will cause NPE");
+        else
+            testReadDatabase();
     }
 
     private void addDrawerItems() {
@@ -174,9 +180,15 @@ public class MainActivity extends AppCompatActivity {
         myRef.setValue("Hello, Green World!");
     }
 
-
-    public void testReadDatabase(View view) {
-        String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+    public void testReadDatabase(){
+    //public void testReadDatabase(View view) {
+        String name = "unassigned";
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null)
+            Log.d(TAG, "Not Updating because user not signed in - will cause NPE");
+        else {
+            name = user.getDisplayName();
+        }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference receiptRef = database.getReference("receipt/" + name + "/");
 
@@ -204,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
 
                 milesTextView.setText(newReceipt.getMiles());
                 gallonsTextView.setText(newReceipt.getGallons());
-                mpgTextView.setText(mpg);
+                mpgTextView.setText(newReceipt.getMiles());
             }
 
             @Override
