@@ -1,5 +1,5 @@
 package taylorandtanner.gasscanmk1;
-
+//commit 10/3
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,13 +15,27 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 //comment so i can commit
 
-public class ViewLogs extends AppCompatActivity {
-    private static final String TAG = "ViewLogs";
+public class ReceiptForm extends AppCompatActivity {
+    //*******Firebase Declarations*************
+
+    //*********************************************************
+    //*******Receipt Text Values*******************************
+    private EditText mPrice;
+    private EditText mGallons;
+    private EditText mPriceGal;
+    private EditText mMiles;
+
+    private static final String TAG = "ReceiptForm";
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
@@ -30,7 +44,7 @@ public class ViewLogs extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_logs);
+        setContentView(R.layout.activity_receipt_form);
 
         mDrawerList = (ListView)findViewById(R.id.navList);mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
@@ -41,7 +55,13 @@ public class ViewLogs extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        mPrice = (EditText) findViewById(R.id.receiptPriceText);          //Initialize to NULL to prevent errors later
+        mGallons = (EditText) findViewById(R.id.receiptGallonsText);
+        mPriceGal = (EditText) findViewById(R.id.receiptPriceGalText);
+        mMiles = (EditText)findViewById(R.id.receiptMilesText);
     }
+
 
     private void addDrawerItems() {
         final String[] osArray = { "Change User", "Settings", "View Logs", "Still Image Test", "Main Menu" };
@@ -134,6 +154,21 @@ public class ViewLogs extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    public void pushReceipt(View view) {
+        String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("/receipt/" + name + "/");
+        //Assign values from layout to placeholder variables:
+
+        ReceiptEntry receiptEntry = new
+                ReceiptEntry(mGallons.getText().toString(),
+                            mPriceGal.getText().toString(),
+                            mPrice.getText().toString(),
+                            mMiles.getText().toString());
+
+                myRef.push().setValue(receiptEntry);
     }
 
 }

@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'GasScanKey'
             keyPassword 'android'
-            storeFile file('C:/Users/Taylor.coomer/Documents/GitHub/gasscan/gasscanmk1/keystores/android.jks')
+            storeFile file('F:/AndroidStudioProjects/gasscan/gasscanmk1/keystores/android.jks')
             storePassword 'android'
         }
     }
@@ -47,6 +47,7 @@ dependencies {
     //androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     //androidTestCompile 'com.android.support:support-annotations:24.2.0'
     //For google vision
+    //commit 10/3
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.google.firebase:firebase-core:9.4.0'
@@ -60,6 +61,7 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.google.android.gms:play-services-vision:9.4.0'
+    compile 'com.google.android.gms:play-services-appindexing:9.4.0'
 }
 
 //For google services & firebase:
