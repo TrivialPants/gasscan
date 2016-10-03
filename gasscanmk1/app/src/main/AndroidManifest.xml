@@ -44,7 +44,6 @@
         <activity
             android:name=".ImageSelect"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".receiptForm"></activity>
     </application>
 
 </manifest>
