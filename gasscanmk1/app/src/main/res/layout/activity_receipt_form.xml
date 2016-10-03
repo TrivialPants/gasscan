@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ReceiptForm">
+    tools:context="taylorandtanner.gasscanmk1.receiptForm">
 
 
 
@@ -104,8 +104,7 @@
         android:id="@+id/receiptPriceText"
         android:layout_above="@+id/receiptGallons"
         android:layout_alignRight="@+id/drawer_layout"
-        android:layout_alignEnd="@+id/drawer_layout"
-        android:text="1" />
+        android:layout_alignEnd="@+id/drawer_layout" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -115,8 +114,7 @@
         android:id="@+id/receiptGallonsText"
         android:layout_alignBottom="@+id/receiptGallons"
         android:layout_alignLeft="@+id/receiptPriceText"
-        android:layout_alignStart="@+id/receiptPriceText"
-        android:text="2" />
+        android:layout_alignStart="@+id/receiptPriceText" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -126,8 +124,7 @@
         android:id="@+id/receiptPriceGalText"
         android:layout_alignBottom="@+id/receiptPriceGal"
         android:layout_alignLeft="@+id/receiptGallonsText"
-        android:layout_alignStart="@+id/receiptGallonsText"
-        android:text="3" />
+        android:layout_alignStart="@+id/receiptGallonsText" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -137,8 +134,7 @@
         android:layout_alignRight="@+id/drawer_layout"
         android:layout_alignEnd="@+id/drawer_layout"
         android:layout_toRightOf="@+id/receiptGasStation"
-        android:layout_toEndOf="@+id/receiptGasStation"
-        android:editable="false" />
+        android:layout_toEndOf="@+id/receiptGasStation" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -147,8 +143,7 @@
         android:ems="10"
         android:id="@+id/receiptMilesText"
         android:layout_alignTop="@+id/receiptMiles"
-        android:layout_centerHorizontal="true"
-        android:text="4" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -161,8 +156,6 @@
         android:layout_alignEnd="@+id/receiptMilesText"
         android:layout_toRightOf="@+id/receiptGallons"
         android:layout_toEndOf="@+id/receiptGallons"
-        android:background="#9eca80"
-        android:clickable= "true"
-        android:onClick="pushReceipt"/>
+        android:background="#9eca80" />
 
 </RelativeLayout>
