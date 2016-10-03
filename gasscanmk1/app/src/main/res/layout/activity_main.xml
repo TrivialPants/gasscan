@@ -80,7 +80,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/miles"
+        android:text="@string/mpg"
         android:id="@+id/textView5"
         android:layout_alignBaseline="@+id/mpg"
         android:layout_alignBottom="@+id/mpg"
@@ -92,7 +92,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="mpg"
+        android:text="@string/miles"
         android:id="@+id/textView6"
         android:editable="false"
         android:layout_alignBottom="@+id/miles"
