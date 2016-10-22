@@ -204,7 +204,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot receiptSnapshot: dataSnapshot.getChildren()){
-                    
+                    String key = receiptSnapshot.getKey().toString();
+                    String value = receiptSnapshot.getValue().toString();
+
+                    Log.d(TAG, "key -> :" + key); //gives unique key of current receipt
+                    Log.d(TAG, "value -> :" + value); //gives all the values of the child
+
+                    ///Traversing the receiptSnapshot per child and assigning each to a receiptEntry object
+                    ReceiptEntry currentReceipt = new ReceiptEntry(receiptSnapshot.child("price").getValue().toString(),
+                                                                    receiptSnapshot.child("gallons").getValue().toString(),
+                                                                    receiptSnapshot.child("priceGal").getValue().toString(),
+                                                                    receiptSnapshot.child("miles").getValue().toString());
+
+                    Log.d(TAG, "Receipt Entry Values: " + currentReceipt.getPrice() + " " + currentReceipt.getGallons() + " " +
+                                                        currentReceipt.getPriceGal() + " " + currentReceipt.getMiles());
                 }
             }
 
