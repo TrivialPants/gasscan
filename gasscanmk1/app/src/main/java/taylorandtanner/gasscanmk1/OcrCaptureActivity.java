@@ -38,6 +38,8 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -47,6 +49,8 @@ import taylorandtanner.gasscanmk1.ui.camera.CameraSource;
 import taylorandtanner.gasscanmk1.ui.camera.CameraSourcePreview;
 import taylorandtanner.gasscanmk1.ui.camera.GraphicOverlay;
 
+import com.google.android.gms.vision.text.Line;
+import com.google.android.gms.vision.text.Text;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.firebase.database.DatabaseReference;
@@ -346,33 +350,61 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * onTap is called to speak the tapped TextBlock, if any, out loud.
-     *
-     * @param rawX - the raw position of the tap
-     * @param rawY - the raw position of the tap.
-     * @return true if the tap was on a TextBlock
-     */
-    private boolean onTap(float rawX, float rawY) {
-        OcrGraphic graphic = mGraphicOverlay.getGraphicAtLocation(rawX, rawY);
-        TextBlock text = null;
-        if (graphic != null) {
-            text = graphic.getTextBlock();
-            if (text != null && text.getValue() != null) {
-                Log.d(TAG, "text data is being spoken! " + text.getValue());
-                // Speak the string.
-                //tts.speak(text.getValue(), TextToSpeech.QUEUE_ADD, null, "DEFAULT");
 
+
+        /**
+         * onTap is called to speak the tapped TextBlock, if any, out loud.
+         *
+         * @param rawX - the raw position of the tap
+         * @param rawY - the raw position of the tap.
+         * @return true if the tap was on a TextBlock
+         */
+        private boolean onTap(float rawX, float rawY) {
+            OcrGraphic graphic = mGraphicOverlay.getGraphicAtLocation(rawX, rawY);
+            TextBlock text = null;
+            if (graphic != null) {
+                text = graphic.getTextBlock();
+                if (text != null && text.getValue() != null) {
+                    // Log.d(TAG, "text data is being spoken! " + text.getValue());
+                    //Speak the string.
+
+                  //  MainActivity obj = new MainActivity();
+                  //  TextView textView = obj.getTextView();
+                    String storage = text.getValue();
+                    storage = storage.replace("[^\\d.]", "");
+                    TextView t1 = (TextView) findViewById(R.id.forStorage);
+                    t1.setText(storage);
+
+                    String separated [] = storage.split("\\r?\\n");
+
+                    TextView t2 = (TextView) findViewById(R.id.forMPG);
+                    t2.setText(separated[0]);
+
+                    TextView t3 = (TextView) findViewById(R.id.forNet);
+                    t3.setText(separated[1]);
+
+                    TextView t4 = (TextView) findViewById(R.id.forQTY);
+                    t4.setText(separated[2]);
+
+                    TextView t5 = (TextView) findViewById(R.id.Total);
+                    t5.setText(separated[3]);
+
+                    //trying to push string from one activity to another
+                 //   Intent i = new Intent(this, MainActivity.class);
+                 //   Bundle bundle = new Bundle();
+               //     String check = "false";
+                //    bundle.putString("one",storage);
+                  //  bundle.putBoolean("Check",false);
+                 //   i.putExtras(bundle);
+
+                } else {
+                    Log.d(TAG, "text data is null");
+                }
+            } else {
+                Log.d(TAG, "no text detected");
             }
-            else {
-                Log.d(TAG, "text data is null");
-            }
+            return text != null;
         }
-        else {
-            Log.d(TAG,"no text detected");
-        }
-        return text != null;
-    }
 
 
 
