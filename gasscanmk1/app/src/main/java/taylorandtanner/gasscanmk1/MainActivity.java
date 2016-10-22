@@ -27,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -190,11 +191,32 @@ public class MainActivity extends AppCompatActivity {
             name = user.getDisplayName();
         }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference receiptRef = database.getReference("receipt/" + name + "/");
+        DatabaseReference receiptRef = database.getReference("receipt/" + name + "/");  //put inside of else{} to prevent errors when not logged in?
 
         final TextView gallonsTextView = (TextView) findViewById(R.id.gallons);
         // Read from the database
 
+        //Start Calculation Query:
+        Query myReceiptQuery = receiptRef
+                .limitToLast(200);
+
+        myReceiptQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot receiptSnapshot: dataSnapshot.getChildren()){
+                    
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Getting post failed, log a message saying so.
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+
+
+        });
+        //End Calculation query (may need to incorporate with child listener)
 
         ChildEventListener childEventListener = receiptRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -216,7 +238,8 @@ public class MainActivity extends AppCompatActivity {
 
                 milesTextView.setText(newReceipt.getMiles());
                 gallonsTextView.setText(newReceipt.getGallons());
-                mpgTextView.setText(newReceipt.getMiles());
+                mpgTextView.setText("PH");
+
             }
 
             @Override

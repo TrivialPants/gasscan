@@ -163,12 +163,15 @@ public class ReceiptForm extends AppCompatActivity {
         //Assign values from layout to placeholder variables:
 
         ReceiptEntry receiptEntry = new
-                ReceiptEntry(mGallons.getText().toString(),
+                ReceiptEntry(mPrice.getText().toString(),
+                            mGallons.getText().toString(),
                             mPriceGal.getText().toString(),
-                            mPrice.getText().toString(),
                             mMiles.getText().toString());
 
                 myRef.push().setValue(receiptEntry);
+        //GO BACK TO MAIN MENU:
+        Intent myIntent = new Intent(view.getContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
     }
 
 }
