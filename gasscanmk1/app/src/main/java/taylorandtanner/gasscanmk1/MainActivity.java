@@ -198,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
             return myReceiptQuery;
         }
     }
+
     public void createBlankSlate(){
         String name = "unassigned";
         String lastKey = "unassigned";

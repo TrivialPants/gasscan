@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -134,11 +135,34 @@ public class SignInActivity extends AppCompatActivity implements
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
+                            checkAndCreateMain();
                             startActivity(new Intent(SignInActivity.this, MainActivity.class));
                             finish();
                         }
                     }
                 });
+    }
+
+    public void checkAndCreateMain(){
+        String name = "unassigned";
+        String lastKey = "unassigned";
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null) {
+            Log.d(TAG, "Not Updating because user not signed in - will cause NPE");
+            Log.d(TAG, "EXITING! USER IS NULL");
+            return; // exit because the user doesn't exist and you can't access below.
+        }
+        else {
+            name = user.getDisplayName();
+            System.out.println("Logged in with user name: " + name);
+        }
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference receiptRef = database.getReference("receipt/" + name + "/");//put inside of else{} to prevent errors when not logged in?
+        final DatabaseReference mainRef = database.getReference("main/" + name + "/");  //same as above...
+
+        receiptTotals blankEntry = new receiptTotals("0", "0", "0", "0", "unassigned", "0");
+        mainRef.setValue(blankEntry);
+        System.out.println("Attempted to create /main/"+name+"/");
     }
 
     public void signOut(View view) {
