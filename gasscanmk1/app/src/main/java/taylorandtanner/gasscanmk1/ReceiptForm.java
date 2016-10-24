@@ -166,7 +166,8 @@ public class ReceiptForm extends AppCompatActivity {
                 ReceiptEntry(mPrice.getText().toString(),
                             mGallons.getText().toString(),
                             mPriceGal.getText().toString(),
-                            mMiles.getText().toString());
+                            mMiles.getText().toString(),
+                            "unassigned");
 
                 myRef.push().setValue(receiptEntry);
         //GO BACK TO MAIN MENU:

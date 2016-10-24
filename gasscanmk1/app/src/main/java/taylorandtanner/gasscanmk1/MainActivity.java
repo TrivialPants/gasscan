@@ -2,6 +2,7 @@ package taylorandtanner.gasscanmk1;
 //commit 10/3
 import android.content.Intent;
 import android.net.Uri;
+import android.renderscript.Sampler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.res.Configuration;
@@ -33,6 +34,9 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import org.w3c.dom.Comment;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -103,8 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivityForResult(myIntent, 0);
                         break;
                     case 3:
-                        myIntent = new Intent(view.getContext(), ImageSelect.class);
-                        startActivityForResult(myIntent, 0);
+                        createBlankSlate();
                         break;
                     case 4:
                         myIntent = new Intent(view.getContext(), ReceiptForm.class);
@@ -181,103 +184,288 @@ public class MainActivity extends AppCompatActivity {
         myRef.setValue("Hello, Green World!");
     }
 
-    public void testReadDatabase(){
-    //public void testReadDatabase(View view) {
+    static private receiptTotals mainInformation = new receiptTotals("0", "0", "0", "0", "unassigned", "0");
+
+   public Query selectQuery(receiptTotals mainInformation, DatabaseReference receiptRef){
+        Query myReceiptQuery;
+        if (mainInformation.getKey().equals("unassigned")) {
+            myReceiptQuery = receiptRef.orderByKey();
+            System.out.println("using orderByKey() because key: " + mainInformation.getKey());
+            return myReceiptQuery;
+        } else {
+            myReceiptQuery = receiptRef.orderByKey().startAt(mainInformation.getKey());
+            System.out.println("using startAt() with key: " + mainInformation.getKey());
+            return myReceiptQuery;
+        }
+    }
+    public void createBlankSlate(){
         String name = "unassigned";
+        String lastKey = "unassigned";
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null)
             Log.d(TAG, "Not Updating because user not signed in - will cause NPE");
         else {
             name = user.getDisplayName();
+            System.out.println("Logged in with user name: " + name);
         }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference receiptRef = database.getReference("receipt/" + name + "/");  //put inside of else{} to prevent errors when not logged in?
+        final DatabaseReference receiptRef = database.getReference("receipt/" + name + "/");//put inside of else{} to prevent errors when not logged in?
+        final DatabaseReference mainRef = database.getReference("main/" + name + "/");  //same as above...
+
+        receiptTotals blankEntry = new receiptTotals("0", "0", "0", "0", "unassigned", "0");
+        mainRef.setValue(blankEntry);
+    }
+    static Boolean isFirstQuery = true;
+    public void testReadDatabase(){
+    //public void testReadDatabase(View view) {
+        String name = "unassigned";
+        String lastKey = "unassigned";
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null)
+            Log.d(TAG, "Not Updating because user not signed in - will cause NPE");
+        else {
+            name = user.getDisplayName();
+            System.out.println("Logged in with user name: " + name);
+        }
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference receiptRef = database.getReference("receipt/" + name + "/");//put inside of else{} to prevent errors when not logged in?
+        final DatabaseReference mainRef = database.getReference("main/" + name + "/");  //same as above...
+
+
 
         final TextView gallonsTextView = (TextView) findViewById(R.id.gallons);
         // Read from the database
-
-        //Start Calculation Query:
-        Query myReceiptQuery = receiptRef
-                .limitToLast(200);
-
-        myReceiptQuery.addValueEventListener(new ValueEventListener() {
+        mainRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot receiptSnapshot: dataSnapshot.getChildren()){
-                    String key = receiptSnapshot.getKey().toString();
-                    String value = receiptSnapshot.getValue().toString();
 
-                    Log.d(TAG, "key -> :" + key); //gives unique key of current receipt
-                    Log.d(TAG, "value -> :" + value); //gives all the values of the child
-
-                    ///Traversing the receiptSnapshot per child and assigning each to a receiptEntry object
-                    ReceiptEntry currentReceipt = new ReceiptEntry(receiptSnapshot.child("price").getValue().toString(),
-                                                                    receiptSnapshot.child("gallons").getValue().toString(),
-                                                                    receiptSnapshot.child("priceGal").getValue().toString(),
-                                                                    receiptSnapshot.child("miles").getValue().toString());
-
-                    Log.d(TAG, "Receipt Entry Values: " + currentReceipt.getPrice() + " " + currentReceipt.getGallons() + " " +
-                                                        currentReceipt.getPriceGal() + " " + currentReceipt.getMiles());
+                String lastKey = dataSnapshot.child("key").getValue().toString();
+                if((lastKey != "unassigned") && (lastKey != mainInformation.getKey())) {
+                    mainInformation.setKey(lastKey);
+                    System.out.println("Last key updated: " + mainInformation.getKey());
                 }
+                else
+                    System.out.println("Last key not updated.");
+
+
+
+                String totalMiles = dataSnapshot.child("miles").getValue().toString();
+                if((totalMiles != "0") && (totalMiles != mainInformation.getMiles())) {   //may want to add greater than
+                    mainInformation.setMiles(totalMiles);
+                    System.out.println("total Miles updated: " + mainInformation.getMiles());
+                }
+                else
+                    System.out.println("total Miles not updated.");
+
+                String totalMPG = dataSnapshot.child("mpg").getValue().toString();
+                if((totalMPG != "0") && (totalMPG != mainInformation.getMPG())) {   //may want to add greater than
+                    mainInformation.setMPG(totalMPG);
+                    System.out.println("total MPG updated: " + mainInformation.getMPG());
+                }
+                else
+                    System.out.println("total MPG not updated.");
+
+                String totalPrice = dataSnapshot.child("price").getValue().toString();
+                if((totalPrice != "0") && (totalPrice != mainInformation.getPrice())) {   //may want to add greater than
+                    mainInformation.setPrice(totalPrice);
+                    System.out.println("total Price updated: " + mainInformation.getPrice());
+                }
+                else
+                    System.out.println("total Price not updated.");
+
+                String totalGallons = dataSnapshot.child("gallons").getValue().toString();
+                if((totalGallons != "0") && (totalGallons != mainInformation.getGallons())) {   //may want to add greater than
+                    mainInformation.setGallons(totalGallons);
+                    System.out.println("total Gallons updated: " + mainInformation.getGallons());
+                }
+                else
+                    System.out.println("total Gallons not updated.");
+
+                String totalPriceGal = dataSnapshot.child("priceGal").getValue().toString();
+                if((totalPriceGal != "0") && (totalPriceGal != mainInformation.getPriceGal())) {   //may want to add greater than
+                    mainInformation.setPriceGal(totalPriceGal);
+                    System.out.println("total PriceGal updated: " + mainInformation.getPriceGal());
+                }
+                else
+                    System.out.println("total PriceGal not updated.");
+
+                String deltaPriceGal = dataSnapshot.child("deltaPriceGal").getValue().toString();
+                if((deltaPriceGal != "0") && (deltaPriceGal != mainInformation.getDeltaPriceGal())) {   //may want to add greater than
+                    mainInformation.setDeltaPriceGal(deltaPriceGal);
+                    System.out.println("delta PriceGal updated: " + mainInformation.getDeltaPriceGal());
+                }
+                else
+                    System.out.println("delta PriceGal not updated.");
+                
+                String deltaGal = dataSnapshot.child("deltaGal").getValue().toString();
+                if((deltaGal != "0") && (deltaGal != mainInformation.getDeltaGal())) {   //may want to add greater than
+                    mainInformation.setDeltaGal(deltaGal);
+                    System.out.println("delta Gal updated: " + mainInformation.getDeltaGal());
+                }
+                else
+                    System.out.println("delta Gal not updated.");
+
+                String deltaMiles = dataSnapshot.child("deltaMiles").getValue().toString();
+                if((deltaMiles != "0") && (deltaMiles != mainInformation.getDeltaMiles())) {   //may want to add greater than
+                    mainInformation.setDeltaMiles(deltaMiles);
+                    System.out.println("delta Miles updated: " + mainInformation.getDeltaMiles());
+                }
+                else
+                    System.out.println("delta Miles not updated.");
+
+                String deltaPrice = dataSnapshot.child("deltaPrice").getValue().toString();
+                if((deltaPrice != "0") && (deltaPrice != mainInformation.getDeltaPrice())) {   //may want to add greater than
+                    mainInformation.setDeltaPrice(deltaPrice);
+                    System.out.println("delta Price updated: " + mainInformation.getDeltaPrice());
+                }
+                else
+                    System.out.println("delta Price not updated.");
+
+                String baseMiles = dataSnapshot.child("baseMiles").getValue().toString();
+                if((baseMiles != "0") && (baseMiles != mainInformation.getBaseMiles())) {   //may want to add greater than
+                    mainInformation.setBaseMiles(baseMiles);
+                    System.out.println("base Miles updated: " + mainInformation.getBaseMiles());
+                }
+                else
+                    System.out.println("base Miles not updated.");
+
+                Query myReceiptQuery = selectQuery(mainInformation, receiptRef);
+                myReceiptQuery.addValueEventListener(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot receiptSnapshot: dataSnapshot.getChildren()){
+
+                            final ReceiptEntry currentReceipt = new ReceiptEntry(receiptSnapshot.child("price").getValue().toString(),
+                                    receiptSnapshot.child("gallons").getValue().toString(),
+                                    receiptSnapshot.child("priceGal").getValue().toString(),
+                                    receiptSnapshot.child("miles").getValue().toString(),
+                                    receiptSnapshot.getKey().toString());
+
+                            mainRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                  performCalculations(currentReceipt, mainInformation);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+
+
+                    public void performCalculations(ReceiptEntry currentReceipt, receiptTotals mainInformation){
+                        System.out.println("****Current Receipt*****:" +
+                        "\nMiles on odometer " + currentReceipt.getMiles() +
+                                "\nPrice/gal " + currentReceipt.getPriceGal() +
+                                "\nGallons " + currentReceipt.getGallons() +
+                                "\nPrice " + currentReceipt.getPrice() +
+                                "\nKey " + currentReceipt.getKey());
+
+                        System.out.println("*****Current TOTALS*****:" +
+                                "\nMiles " + mainInformation.getMiles() +
+                                "\nlast Key " + mainInformation.getKey() +
+                                "\ngallons " + mainInformation.getGallons() +
+                                "\nprice " + mainInformation.getPrice() +
+                                "\npriceGal " + mainInformation.getPriceGal() +
+                                "\nMPG " + mainInformation.getMPG() +
+                                "\n***Deltas****" +
+                                "\ndeltaMiles " + mainInformation.getDeltaMiles() +
+                                "\ndeltaPrice " + mainInformation.getDeltaPrice() +
+                                "\ndeltaPriceGal " + mainInformation.getDeltaPrice() +
+                                "\ndeltaGal " + mainInformation.getDeltaGal() +
+                                "\ndeltaMPG " + mainInformation.getMPG() +
+                                "\nBase Mileage " + mainInformation.getBaseMiles());
+
+                        //Perform calculations:
+                        if(mainInformation.getBaseMiles().equals("0")) {  //Should only set for first ever receipt. After this will have value in DB
+                            mainInformation.setBaseMiles(currentReceipt.getMiles());
+                            mainInformation.setMiles(currentReceipt.getMiles());
+                        }
+                        else {
+                            System.out.println(currentReceipt.getMiles() + "-" + mainInformation.getMiles());
+                            mainInformation.setDeltaMiles( //calculatable miles
+                                    Integer.toString(Integer.parseInt(currentReceipt.getMiles()) -
+                                            Integer.parseInt(mainInformation.getMiles()))
+                            );
+                            System.out.println(mainInformation.getDeltaMiles() + "+" + mainInformation.getBaseMiles());
+                            mainInformation.setMiles(    //Miles total driven since app.
+                                    Integer.toString(Integer.parseInt(mainInformation.getDeltaMiles())+
+                                            Integer.parseInt(mainInformation.getMiles()) -
+                                            Integer.parseInt(mainInformation.getBaseMiles()))
+                            );
+                        }
+
+                        if(mainInformation.getKey().equals("unassigned")){
+                            System.out.println("TEST: unassigned equals true!!!");
+                            mainInformation.setKey(currentReceipt.getKey());
+                        }
+
+                        mainInformation.setDeltaGal(currentReceipt.getGallons());
+                        mainInformation.setGallons(
+                                Double.toString(Double.parseDouble(mainInformation.getDeltaGal()) +
+                                        Double.parseDouble(mainInformation.getGallons()))
+                        );
+                        if(!mainInformation.getDeltaMiles().equals("0") || !mainInformation.getDeltaGal().equals("0")){
+                            mainInformation.setDeltaMPG(
+                                    Double.toString(Double.parseDouble(mainInformation.getDeltaMiles()) /
+                                    Double.parseDouble(mainInformation.getDeltaGal()))
+                            );
+                        }
+
+                        if(!mainInformation.getMiles().equals("0") || !mainInformation.getGallons().equals("0")){
+                            mainInformation.setMPG(
+                                    Double.toString(Double.parseDouble(mainInformation.getMiles()) /
+                                            Double.parseDouble(mainInformation.getGallons()))
+                            );
+                        }
+                    //Set Values:
+                        mainRef.setValue(mainInformation);
+
+                        //Set text values in main layout
+                        final TextView milesTextView = (TextView) findViewById(R.id.miles);
+                        final TextView gallonsTextView = (TextView) findViewById(R.id.gallons);
+
+                        float mpg = R.id.miles / R.id.gallons;
+
+                        final TextView mpgTextView = (TextView) findViewById(R.id.mpg);   //holding priceGal for now
+
+                        milesTextView.setText(mainInformation.getMiles());
+                        gallonsTextView.setText(mainInformation.getGallons());
+                        mpgTextView.setText(
+                                Double.toString(
+                                        BigDecimal.valueOf(Double.parseDouble(mainInformation.getMPG()))
+                                        .setScale(2, RoundingMode.HALF_UP).doubleValue()
+                                )
+                        );
+
+
+
+
+
+                    }
+                });
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                //Getting post failed, log a message saying so.
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
 
-
-        });
-        //End Calculation query (may need to incorporate with child listener)
-
-        ChildEventListener childEventListener = receiptRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                //String value = dataSnapshot.getValue(String.class);
-
-
-                ReceiptEntry newReceipt = dataSnapshot.getValue(ReceiptEntry.class);
-
-
-                final TextView milesTextView = (TextView) findViewById(R.id.miles);
-                final TextView gallonsTextView = (TextView) findViewById(R.id.gallons);
-
-                float mpg = R.id.miles / R.id.gallons;
-
-                final TextView mpgTextView = (TextView) findViewById(R.id.mpg);   //holding priceGal for now
-
-                milesTextView.setText(newReceipt.getMiles());
-                gallonsTextView.setText(newReceipt.getGallons());
-                mpgTextView.setText("PH");
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Log.d(TAG, "onChildChanged:" + dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "onChildRemoved:" + dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                Log.d(TAG, "onChildMoved:" + dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-        receiptRef.addChildEventListener(childEventListener);
-        // [END child_event_listener_recycler]
+
+
+
+
     }
 
 

@@ -12,15 +12,17 @@ public class ReceiptEntry {
     private String gallons;
     private String priceGal;
     private String miles;
+    private String key;
 
     public ReceiptEntry() {
     }
 
-    public ReceiptEntry(String price, String gallons, String priceGal, String miles) {
+    public ReceiptEntry(String price, String gallons, String priceGal, String miles, String key) {
         this.price = price;
         this.gallons = gallons;
         this.priceGal = priceGal;
         this.miles = miles;
+        this.key = key;
     }
 
     public String getPrice() {
@@ -51,4 +53,11 @@ public class ReceiptEntry {
         this.miles = miles;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 }
