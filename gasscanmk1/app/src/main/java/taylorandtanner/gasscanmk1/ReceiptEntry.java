@@ -1,12 +1,14 @@
 package taylorandtanner.gasscanmk1;
 
+import java.io.Serializable;
+
 /**
  * Created by Taylor.coomer on 10/2/2016.
  */
 
 
 
-public class ReceiptEntry {
+public class ReceiptEntry implements Serializable{
 
     private String price;
     private String gallons;

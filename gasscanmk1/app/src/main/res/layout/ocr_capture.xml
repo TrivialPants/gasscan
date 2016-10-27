@@ -83,4 +83,18 @@
         android:layout_toEndOf="@+id/button3"
         android:text="New Text" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm Selections"
+        android:id="@+id/acceptOCRButton"
+        android:layout_below="@+id/Total"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="31dp"
+        android:layout_marginEnd="31dp"
+        android:background="#8eb884"
+        android:clickable="true"
+        />
 </RelativeLayout>

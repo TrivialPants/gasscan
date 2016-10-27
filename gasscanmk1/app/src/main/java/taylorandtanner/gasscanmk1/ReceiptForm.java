@@ -60,6 +60,15 @@ public class ReceiptForm extends AppCompatActivity {
         mGallons = (EditText) findViewById(R.id.receiptGallonsText);
         mPriceGal = (EditText) findViewById(R.id.receiptPriceGalText);
         mMiles = (EditText)findViewById(R.id.receiptMilesText);
+
+        ReceiptEntry inputReceipt =     //Receipt from ocr output
+        (ReceiptEntry)getIntent().getSerializableExtra(OcrCaptureActivity.SER_KEY);
+
+        mPrice.setText(inputReceipt.getPrice());
+        mGallons.setText(inputReceipt.getGallons());
+        mPriceGal.setText(inputReceipt.getPriceGal());
+        mMiles.setText(inputReceipt.getMiles());
+
     }
 
 

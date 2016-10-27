@@ -37,6 +37,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -64,9 +65,9 @@ import java.util.Locale;
  * rear facing camera. During detection overlay graphics are drawn to indicate the position,
  * size, and contents of each TextBlock.
  */
-public final class OcrCaptureActivity extends AppCompatActivity {
+public final class OcrCaptureActivity extends AppCompatActivity{
     private static final String TAG = "OcrCaptureActivity";
-
+    public  final static String SER_KEY = "taylorandtanner.gasscanmk1.ser";
     // Intent request code to handle updating play services if needed.
     private static final int RC_HANDLE_GMS = 9001;
 
@@ -106,6 +107,29 @@ public final class OcrCaptureActivity extends AppCompatActivity {
 
         });
 
+        final Button acceptOCRButton = (Button)findViewById(R.id.acceptOCRButton);
+        acceptOCRButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("CLICKED!!1");
+
+                String output1 = ((TextView)findViewById(R.id.forMPG)).getText().toString();
+                String output2 = ((TextView)findViewById(R.id.forNet)).getText().toString();
+                String output3 = ((TextView)findViewById(R.id.forQTY)).getText().toString();
+                String output4 = ((TextView)findViewById(R.id.Total)).getText().toString();
+
+                ReceiptEntry outputReceipt = new ReceiptEntry(output1, output2, output3,
+                                                                output4, "unassigned");
+
+                System.out.println("1: " + output1 + "\n2: " + output2 + "\n3: " + output3 +
+                                    "\n4: " + output4);
+                SerializeMethod(outputReceipt);
+               // Intent activityChangeIntent = new Intent(OcrCaptureActivity.this, ReceiptForm.class);
+               // OcrCaptureActivity.this.startActivity(activityChangeIntent);
+
+            }
+        });
+
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);
 
@@ -143,6 +167,16 @@ public final class OcrCaptureActivity extends AppCompatActivity {
                     }
                 };
         tts = new TextToSpeech(this.getApplicationContext(), listener);
+    }
+
+    public void SerializeMethod(ReceiptEntry ocrReceipt){
+        Intent mIntent = new Intent(this, ReceiptForm.class);
+        Bundle mBundle = new Bundle();
+        System.out.println("TEST VALUE : " + ocrReceipt.getGallons());
+        mBundle.putSerializable(SER_KEY, ocrReceipt);
+        mIntent.putExtras(mBundle);
+
+        startActivity(mIntent);
     }
 
     /**
@@ -371,11 +405,11 @@ public final class OcrCaptureActivity extends AppCompatActivity {
                   //  MainActivity obj = new MainActivity();
                   //  TextView textView = obj.getTextView();
                     String storage = text.getValue();
-                    storage = storage.replace("[^\\d.]", "");
-                    TextView t1 = (TextView) findViewById(R.id.forStorage);
-                    t1.setText(storage);
+                   // storage = storage.replace("[^\\d.]", "");
+                   // TextView t1 = (TextView) findViewById(R.id.forStorage);
+                   // t1.setText(storage);
 
-                    String separated [] = storage.split("\\r?\\n");
+                    /*String separated [] = storage.split("\\r?\\n");
 
                     TextView t2 = (TextView) findViewById(R.id.forMPG);
                     t2.setText(separated[0]);
@@ -387,8 +421,40 @@ public final class OcrCaptureActivity extends AppCompatActivity {
                     t4.setText(separated[2]);
 
                     TextView t5 = (TextView) findViewById(R.id.Total);
-                    t5.setText(separated[3]);
+                    t5.setText(separated[3]);*/
 
+                    final ReceiptEntry ocrEntry = new ReceiptEntry("1","2","3","unassigned","4");
+
+                    //
+
+
+                    /*mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            //     Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+                            switch (position) {
+                                case 0:
+                                    Intent myIntent = new Intent(view.getContext(), SignInActivity.class);
+                                    startActivityForResult(myIntent, 0);
+                                    break;
+                                case 1:
+                                    myIntent = new Intent(view.getContext(), Settings.class);
+                                    startActivityForResult(myIntent, 0);
+                                    break;
+                                case 2:
+                                    myIntent = new Intent(view.getContext(), ViewLogs.class);
+                                    startActivityForResult(myIntent, 0);
+                                    break;
+                                case 3:
+                                    createBlankSlate();
+                                    break;
+                                case 4:
+                                    myIntent = new Intent(view.getContext(), ReceiptForm.class);
+                                    startActivityForResult(myIntent, 0);
+                                    break;
+                                default:
+                                    return;
+                            }*/
                     //trying to push string from one activity to another
                  //   Intent i = new Intent(this, MainActivity.class);
                  //   Bundle bundle = new Bundle();
@@ -405,6 +471,8 @@ public final class OcrCaptureActivity extends AppCompatActivity {
             }
             return text != null;
         }
+
+
 
 
 
