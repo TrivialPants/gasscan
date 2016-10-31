@@ -64,10 +64,12 @@ public class ReceiptForm extends AppCompatActivity {
         ReceiptEntry inputReceipt =     //Receipt from ocr output
         (ReceiptEntry)getIntent().getSerializableExtra(OcrCaptureActivity.SER_KEY);
 
-        mPrice.setText(inputReceipt.getPrice());
-        mGallons.setText(inputReceipt.getGallons());
-        mPriceGal.setText(inputReceipt.getPriceGal());
-        mMiles.setText(inputReceipt.getMiles());
+        if(inputReceipt != null) {
+            mPrice.setText(inputReceipt.getPrice());
+            mGallons.setText(inputReceipt.getGallons());
+            mPriceGal.setText(inputReceipt.getPriceGal());
+            mMiles.setText(inputReceipt.getMiles());
+        }
 
     }
 

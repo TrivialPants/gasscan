@@ -347,7 +347,12 @@ public class MainActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                  performCalculations(currentReceipt, mainInformation);
+                                    if(!mainInformation.getKey().equals(currentReceipt.getKey())) {
+                                        performCalculations(currentReceipt, mainInformation);
+                                    }
+                                    else{
+                                        showToMain(currentReceipt, mainInformation);
+                                    }
                                 }
 
                                 @Override
@@ -363,9 +368,30 @@ public class MainActivity extends AppCompatActivity {
 
                     }
 
+                    public void showToMain(ReceiptEntry currentReceipt, receiptTotals mainInformation){
+                        //Set Values:
+                        mainRef.setValue(mainInformation);
+
+                        //Set text values in main layout
+                        final TextView milesTextView = (TextView) findViewById(R.id.miles);
+                        final TextView gallonsTextView = (TextView) findViewById(R.id.gallons);
+
+                        float mpg = R.id.miles / R.id.gallons;
+
+                        final TextView mpgTextView = (TextView) findViewById(R.id.mpg);   //holding priceGal for now
+
+                        milesTextView.setText(mainInformation.getMiles());
+                        gallonsTextView.setText(mainInformation.getGallons());
+                        mpgTextView.setText(
+                                Double.toString(
+                                        BigDecimal.valueOf(Double.parseDouble(mainInformation.getMPG()))
+                                                .setScale(2, RoundingMode.HALF_UP).doubleValue()
+                                )
+                        );
+                    }
 
                     public void performCalculations(ReceiptEntry currentReceipt, receiptTotals mainInformation){
-                        System.out.println("****Current Receipt*****:" +
+                      /*  System.out.println("****Current Receipt*****:" +
                         "\nMiles on odometer " + currentReceipt.getMiles() +
                                 "\nPrice/gal " + currentReceipt.getPriceGal() +
                                 "\nGallons " + currentReceipt.getGallons() +
@@ -386,7 +412,12 @@ public class MainActivity extends AppCompatActivity {
                                 "\ndeltaGal " + mainInformation.getDeltaGal() +
                                 "\ndeltaMPG " + mainInformation.getMPG() +
                                 "\nBase Mileage " + mainInformation.getBaseMiles());
+                        */
 
+                        System.out.println("**********************************\n" +
+                                            "currentKey: " + currentReceipt.getKey() +
+                                            "\nKEY: " + mainInformation.getKey() +
+                                            "\n**********************************");
                         //Perform calculations:
                         if(mainInformation.getBaseMiles().equals("0")) {  //Should only set for first ever receipt. After this will have value in DB
                             mainInformation.setBaseMiles(currentReceipt.getMiles());
@@ -406,16 +437,21 @@ public class MainActivity extends AppCompatActivity {
                             );
                         }
 
-                        if(mainInformation.getKey().equals("unassigned")){
-                            System.out.println("TEST: unassigned equals true!!!");
+                        if(mainInformation.getKey().equals("unassigned") ||
+                                !mainInformation.getKey().equals(currentReceipt.getKey())){
                             mainInformation.setKey(currentReceipt.getKey());
+                            System.out.println("TEST: mainInfo key updated to: " + mainInformation.getKey());
                         }
 
                         mainInformation.setDeltaGal(currentReceipt.getGallons());
+
                         mainInformation.setGallons(
                                 Double.toString(Double.parseDouble(mainInformation.getDeltaGal()) +
-                                        Double.parseDouble(mainInformation.getGallons()))
+                                       Double.parseDouble(mainInformation.getGallons()))
+                               // Double.toString(Double.parseDouble())
                         );
+
+
                         if(!mainInformation.getDeltaMiles().equals("0") || !mainInformation.getDeltaGal().equals("0")){
                             mainInformation.setDeltaMPG(
                                     Double.toString(Double.parseDouble(mainInformation.getDeltaMiles()) /

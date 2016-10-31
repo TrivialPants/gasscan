@@ -21,6 +21,8 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 import taylorandtanner.gasscanmk1.ui.camera.GraphicOverlay;
+
+import com.google.android.gms.vision.text.Line;
 import com.google.android.gms.vision.text.Text;
 import com.google.android.gms.vision.text.TextBlock;
 
@@ -44,6 +46,7 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
         super(overlay);
 
         mText = text;
+
 
         if (sRectPaint == null) {
             sRectPaint = new Paint();
@@ -72,6 +75,7 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
     public TextBlock getTextBlock() {
         return mText;
     }
+
 
     /**
      * Checks whether a point is within the bounding box of this graphic.
@@ -112,6 +116,7 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
         // Break the text into multiple lines and draw each one according to its own bounding box.
         List<? extends Text> textComponents = mText.getComponents();
         for(Text currentText : textComponents) {
+            System.out.println("Current text: " + currentText.getValue().toString());
             float left = translateX(currentText.getBoundingBox().left);
             float bottom = translateY(currentText.getBoundingBox().bottom);
             canvas.drawText(currentText.getValue(), left, bottom, sTextPaint);
