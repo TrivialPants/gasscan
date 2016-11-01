@@ -25,6 +25,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -37,9 +38,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,15 +50,10 @@ import taylorandtanner.gasscanmk1.ui.camera.CameraSource;
 import taylorandtanner.gasscanmk1.ui.camera.CameraSourcePreview;
 import taylorandtanner.gasscanmk1.ui.camera.GraphicOverlay;
 
-import com.google.android.gms.vision.text.Line;
-import com.google.android.gms.vision.text.Text;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
-import java.util.Locale;
 
 /**
  * Activity for the Ocr Detecting app.  This app detects text and displays the value with the
@@ -113,22 +108,81 @@ public final class OcrCaptureActivity extends AppCompatActivity{
             public void onClick(View v) {
                 System.out.println("CLICKED!!1");
 
-                String output1 = ((TextView)findViewById(R.id.forMPG)).getText().toString();
-                String output2 = ((TextView)findViewById(R.id.forNet)).getText().toString();
-                String output3 = ((TextView)findViewById(R.id.forQTY)).getText().toString();
-                String output4 = ((TextView)findViewById(R.id.Total)).getText().toString();
+                String outputGal = ((TextView)findViewById(R.id.forGallons)).getText().toString();
+                String outputPriceGal = ((TextView)findViewById(R.id.forPriceGal)).getText().toString();
+                String outputMileage = ((TextView)findViewById(R.id.forMileage)).getText().toString();
+                String outputPrice = ((TextView)findViewById(R.id.forPrice)).getText().toString();
 
-                ReceiptEntry outputReceipt = new ReceiptEntry(output1, output2, output3,
-                                                                output4, "unassigned");
+                ReceiptEntry outputReceipt = new ReceiptEntry(outputPrice, outputGal, outputPriceGal,
+                                                                outputMileage, "unassigned");
 
-                System.out.println("1: " + output1 + "\n2: " + output2 + "\n3: " + output3 +
-                                    "\n4: " + output4);
                 SerializeMethod(outputReceipt);
                // Intent activityChangeIntent = new Intent(OcrCaptureActivity.this, ReceiptForm.class);
                // OcrCaptureActivity.this.startActivity(activityChangeIntent);
 
             }
         });
+
+        final SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
+                // TODO Auto-generated method stub
+
+                TextView t2 = (TextView) findViewById(R.id.forPrice);
+                TextView t3 = (TextView) findViewById(R.id.forGallons);
+                TextView t4 = (TextView) findViewById(R.id.forPriceGal);
+                TextView t5 = (TextView) findViewById(R.id.forMileage);
+
+
+                if(seekBar.getProgress() >= 0 && seekBar.getProgress() < 25){
+                    t2.setTextColor(Color.RED);
+                    //Set others black
+                    t3.setTextColor(Color.BLACK);
+                    t4.setTextColor(Color.BLACK);
+                    t5.setTextColor(Color.BLACK);
+
+                }
+                else if(seekBar.getProgress() >= 25 && seekBar.getProgress() < 50){
+                    t3.setTextColor(Color.RED);
+                    //Set others black
+                    t2.setTextColor(Color.BLACK);
+                    t4.setTextColor(Color.BLACK);
+                    t5.setTextColor(Color.BLACK);
+
+                }
+                else if(seekBar.getProgress() >= 50 && seekBar.getProgress() < 75){
+                    t4.setTextColor(Color.RED);
+                    //Set others black
+                    t2.setTextColor(Color.BLACK);
+                    t3.setTextColor(Color.BLACK);
+                    t5.setTextColor(Color.BLACK);
+
+                }
+                else if(seekBar.getProgress() >= 75 && seekBar.getProgress() <= 100){
+                    t5.setTextColor(Color.RED);
+                    //Set others black
+                    t2.setTextColor(Color.BLACK);
+                    t4.setTextColor(Color.BLACK);
+                    t3.setTextColor(Color.BLACK);
+
+                }
+
+
+            }
+        });
+
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
         mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);
@@ -149,12 +203,13 @@ public final class OcrCaptureActivity extends AppCompatActivity{
         gestureDetector = new GestureDetector(this, new CaptureGestureListener());
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
-        Snackbar.make(mGraphicOverlay, "Tap to Speak. Pinch/Stretch to zoom",
+        Snackbar.make(mGraphicOverlay, "Tap the text to place into the desired field. \n Select" +
+                " 'confirm' when you are happy with the selection.",
                 Snackbar.LENGTH_LONG)
                 .show();
 
         // Set up the Text To Speech engine.
-        TextToSpeech.OnInitListener listener =
+       /* TextToSpeech.OnInitListener listener =
                 new TextToSpeech.OnInitListener() {
                     @Override
                     public void onInit(final int status) {
@@ -166,7 +221,7 @@ public final class OcrCaptureActivity extends AppCompatActivity{
                         }
                     }
                 };
-        tts = new TextToSpeech(this.getApplicationContext(), listener);
+        tts = new TextToSpeech(this.getApplicationContext(), listener);*/
     }
 
     public void SerializeMethod(ReceiptEntry ocrReceipt){
@@ -269,7 +324,7 @@ public final class OcrCaptureActivity extends AppCompatActivity{
                 new CameraSource.Builder(getApplicationContext(), textRecognizer)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setRequestedPreviewSize(1280, 1024)
-                .setRequestedFps(0.1f)
+                .setRequestedFps(0.5f)
                 .setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
                 .setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE : null)
                 .build();
@@ -407,7 +462,27 @@ public final class OcrCaptureActivity extends AppCompatActivity{
 
                   //  MainActivity obj = new MainActivity();
                   //  TextView textView = obj.getTextView();
+                    int comparison = Color.RED;
                     String storage = text.getValue();
+
+                    TextView t2 = (TextView) findViewById(R.id.forPrice);
+                    TextView t3 = (TextView) findViewById(R.id.forGallons);
+                    TextView t4 = (TextView) findViewById(R.id.forPriceGal);
+                    TextView t5 = (TextView) findViewById(R.id.forMileage);
+
+
+                    if(t2.getCurrentTextColor() == comparison){
+                        t2.setText(storage);
+                    }
+                    else if(t3.getCurrentTextColor() == comparison){
+                        t3.setText(storage);
+                    }
+                    else if(t4.getCurrentTextColor() == comparison){
+                        t4.setText(storage);
+                    }
+                    else if(t5.getCurrentTextColor() == comparison){
+                        t5.setText(storage);
+                    }
                    // storage = storage.replace("[^\\d.]", "");
                    // TextView t1 = (TextView) findViewById(R.id.forStorage);
                    // t1.setText(storage);

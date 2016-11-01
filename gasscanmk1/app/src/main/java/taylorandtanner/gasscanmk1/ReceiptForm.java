@@ -21,8 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 //comment so i can commit
 
 public class ReceiptForm extends AppCompatActivity {
@@ -167,11 +170,59 @@ public class ReceiptForm extends AppCompatActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public void pushReceipt(View view) {
+    public void pushReceipt(final View view) {
         String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("/receipt/" + name + "/");
+        final DatabaseReference myRef = database.getReference("/receipt/" + name + "/");
+        DatabaseReference mainRef = database.getReference("/main/" + name + "/");
         //Assign values from layout to placeholder variables:
+        //Integer maxMiles = Integer.parseInt(mainRef.child("miles").toString()) +
+        //            Integer.parseInt(mainRef.child("baseMiles").toString());
+
+
+        final String[] maxMiles1 = {"unassigned"};
+        final String[] maxMiles2 = {"unassigned"};
+
+        mainRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                maxMiles1[0] = dataSnapshot.child("miles").getValue().toString();
+                maxMiles2[0] = dataSnapshot.child("baseMiles").getValue().toString();
+
+                pushToFB(maxMiles1[0], maxMiles2[0]);
+            }
+
+
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+
+            public void pushToFB(String maxMiles1, String maxMiles2){
+                //if(Integer.parseInt(mMiles.getText().toString()) > maxMiles){
+                System.out.println("Breach: " + maxMiles1 + "+" + maxMiles2 + " is less than " + mMiles.getText());
+
+                ReceiptEntry receiptEntry = new
+                        ReceiptEntry(mPrice.getText().toString(),
+                        mGallons.getText().toString(),
+                        mPriceGal.getText().toString(),
+                        mMiles.getText().toString(),
+                        "unassigned");
+
+                myRef.push().setValue(receiptEntry);
+                //GO BACK TO MAIN MENU:
+                Intent myIntent = new Intent(view.getContext(), MainActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
+
+       /* //if(Integer.parseInt(mMiles.getText().toString()) > maxMiles){
+            System.out.println("Breach: " + maxMiles1[0] + "+" + maxMiles2[0] + " is less than " + mMiles.getText());
 
         ReceiptEntry receiptEntry = new
                 ReceiptEntry(mPrice.getText().toString(),
@@ -183,7 +234,7 @@ public class ReceiptForm extends AppCompatActivity {
                 myRef.push().setValue(receiptEntry);
         //GO BACK TO MAIN MENU:
         Intent myIntent = new Intent(view.getContext(), MainActivity.class);
-        startActivityForResult(myIntent, 0);
+        startActivityForResult(myIntent, 0);*/
     }
 
 }

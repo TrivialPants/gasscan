@@ -696,6 +696,7 @@ public class CameraSource {
 
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
+
             if (mDelegate != null) {
                 mDelegate.onPictureTaken(data);
             }
@@ -1031,6 +1032,7 @@ public class CameraSource {
      * @return a new preview buffer of the appropriate size for the current camera settings
      */
     private byte[] createPreviewBuffer(Size previewSize) {
+
         int bitsPerPixel = ImageFormat.getBitsPerPixel(ImageFormat.NV21);
         long sizeInBits = previewSize.getHeight() * previewSize.getWidth() * bitsPerPixel;
         int bufferSize = (int) Math.ceil(sizeInBits / 8.0d) + 1;
@@ -1063,6 +1065,7 @@ public class CameraSource {
     private class CameraPreviewCallback implements Camera.PreviewCallback {
         @Override
         public void onPreviewFrame(byte[] data, Camera camera) {
+           // System.out.println("onPreviewFrame");  --1. (or 3)
             mFrameProcessor.setNextFrame(data, camera);
         }
     }
@@ -1122,6 +1125,7 @@ public class CameraSource {
          */
         void setNextFrame(byte[] data, Camera camera) {
             synchronized (mLock) {
+                //System.out.println("Set next frame"); 2.
                 if (mPendingFrameData != null) {
                     camera.addCallbackBuffer(mPendingFrameData.array());
                     mPendingFrameData = null;

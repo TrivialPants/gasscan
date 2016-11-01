@@ -10,7 +10,7 @@
     <taylorandtanner.gasscanmk1.ui.camera.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
-        android:layout_height="434dp">
+        android:layout_height="380dp">
 
         <taylorandtanner.gasscanmk1.ui.camera.GraphicOverlay
             android:id="@+id/graphicOverlay"
@@ -26,62 +26,47 @@
         android:id="@+id/button3"
         android:layout_below="@+id/preview"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentStart="false" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/forStorage"
+        android:text="00"
+        android:id="@+id/forGallons"
         android:textSize="10dp"
-        android:layout_alignBaseline="@+id/forMPG"
-        android:layout_alignBottom="@+id/forMPG"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="92dp"
-        android:layout_marginEnd="92dp" />
+        android:layout_marginRight="89dp"
+        android:layout_marginEnd="89dp"
+        android:layout_alignTop="@+id/acceptOCRButton"
+        android:layout_toLeftOf="@+id/forMileage" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/forMPG"
+        android:text="00"
+        android:id="@+id/forPriceGal"
         android:textSize="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/button3"
-        android:layout_toEndOf="@+id/button3"
-        android:layout_marginBottom="75dp" />
+        android:layout_below="@+id/button3"
+        android:layout_alignLeft="@+id/forMileage" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/forNet"
+        android:text="00"
+        android:id="@+id/forMileage"
         android:textSize="10dp"
-        android:layout_below="@+id/forStorage"
-        android:layout_toRightOf="@+id/button3"
-        android:layout_toEndOf="@+id/button3" />
+        android:layout_alignTop="@+id/forGallons"
+        android:layout_alignRight="@+id/seekBar"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/forQTY"
+        android:id="@+id/forPrice"
         android:textSize="10dp"
-        android:layout_below="@+id/forNet"
-        android:layout_toRightOf="@+id/button3"
-        android:layout_toEndOf="@+id/button3" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Total"
-        android:textSize="10dp"
-        android:layout_below="@+id/forQTY"
-        android:layout_toRightOf="@+id/button3"
-        android:layout_toEndOf="@+id/button3"
-        android:text="New Text" />
+        android:text="00"
+        android:layout_alignTop="@+id/forPriceGal"
+        android:layout_alignLeft="@+id/forGallons" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -89,12 +74,62 @@
         android:layout_height="wrap_content"
         android:text="Confirm Selections"
         android:id="@+id/acceptOCRButton"
-        android:layout_below="@+id/Total"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="31dp"
-        android:layout_marginEnd="31dp"
         android:background="#8eb884"
         android:clickable="true"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false" />
+
+    <SeekBar
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:id="@+id/seekBar"
+        android:progress="0"
+        android:contextClickable="true"
+        android:layout_below="@+id/preview"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false"
+        android:layout_toRightOf="@+id/acceptOCRButton"
+        android:layout_toEndOf="@+id/acceptOCRButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Total Price:"
+        android:id="@+id/totalPrice"
+        android:layout_above="@+id/forPrice"
+        android:layout_toLeftOf="@+id/forPrice"
+        android:layout_toStartOf="@+id/forPrice" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Gallons:"
+        android:id="@+id/gallons"
+        android:layout_above="@+id/forGallons"
+        android:layout_toLeftOf="@+id/forGallons"
+        android:layout_toStartOf="@+id/forGallons" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Price/Gal:"
+        android:id="@+id/textView7"
+        android:layout_above="@+id/forPriceGal"
+        android:layout_toLeftOf="@+id/forPriceGal"
+        android:layout_toStartOf="@+id/forPriceGal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Mileage:"
+        android:id="@+id/textView8"
+        android:layout_above="@+id/forMileage"
+        android:layout_toLeftOf="@+id/forMileage"
+        android:layout_toStartOf="@+id/forMileage" />
+
 </RelativeLayout>
