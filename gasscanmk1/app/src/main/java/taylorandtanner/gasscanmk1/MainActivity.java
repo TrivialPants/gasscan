@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        final String[] osArray = {"Change User", "Settings", "View Logs", "Still Image Test", "Receipt Entry"};
+        final String[] osArray = {"Change User", "Settings", "View Logs", "Clear Totals (Firebase)", "Receipt Entry"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 

@@ -203,10 +203,10 @@ public final class OcrCaptureActivity extends AppCompatActivity{
         gestureDetector = new GestureDetector(this, new CaptureGestureListener());
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
-        Snackbar.make(mGraphicOverlay, "Tap the text to place into the desired field. \n Select" +
+        /*Snackbar.make(mGraphicOverlay, "Tap the text to place into the desired field. \n Select" +
                 " 'confirm' when you are happy with the selection.",
                 Snackbar.LENGTH_LONG)
-                .show();
+                .show();*/
 
         // Set up the Text To Speech engine.
        /* TextToSpeech.OnInitListener listener =

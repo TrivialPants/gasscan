@@ -37,7 +37,7 @@
             android:layout_width="200dp"
             android:layout_height="250dp"
             android:layout_gravity="left|start"
-            android:background="#ff9d44" />
+            android:background="#b3b3b3" />
     </android.support.v4.widget.DrawerLayout>
 
 </RelativeLayout>

@@ -44,7 +44,7 @@ public class ViewLogs extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        final String[] osArray = { "Change User", "Settings", "View Logs", "Still Image Test", "Main Menu" };
+        final String[] osArray = { "Change User", "Settings", "View Logs", "Clear Totals (Firebase)", "Main Menu" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -67,8 +67,8 @@ public class ViewLogs extends AppCompatActivity {
                         startActivityForResult(myIntent, 0);
                         break;
                     case 3:
-                        myIntent = new Intent(view.getContext(), ImageSelect.class);
-                        startActivityForResult(myIntent, 0);
+                        //myIntent = new Intent(view.getContext(), ImageSelect.class);
+                        //startActivityForResult(myIntent, 0);
                         break;
                     case 4:
                         myIntent = new Intent(view.getContext(), MainActivity.class);

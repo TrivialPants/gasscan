@@ -119,7 +119,7 @@
             android:layout_width="200dp"
             android:layout_height="250dp"
             android:layout_gravity="left|start"
-            android:background="#e7c1c1"
+            android:background="#b3b3b3"
             android:choiceMode="singleChoice"
             android:alpha="100" />
     </android.support.v4.widget.DrawerLayout>
