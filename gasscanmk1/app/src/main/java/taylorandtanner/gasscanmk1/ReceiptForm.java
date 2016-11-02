@@ -26,6 +26,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 //comment so i can commit
 
 public class ReceiptForm extends AppCompatActivity {
@@ -37,6 +41,7 @@ public class ReceiptForm extends AppCompatActivity {
     private EditText mGallons;
     private EditText mPriceGal;
     private EditText mMiles;
+    private EditText mStation;
 
     private static final String TAG = "ReceiptForm";
     private ListView mDrawerList;
@@ -63,6 +68,7 @@ public class ReceiptForm extends AppCompatActivity {
         mGallons = (EditText) findViewById(R.id.receiptGallonsText);
         mPriceGal = (EditText) findViewById(R.id.receiptPriceGalText);
         mMiles = (EditText)findViewById(R.id.receiptMilesText);
+        mStation = (EditText)findViewById(R.id.receiptGasStationText);
 
         ReceiptEntry inputReceipt =     //Receipt from ocr output
         (ReceiptEntry)getIntent().getSerializableExtra(OcrCaptureActivity.SER_KEY);
@@ -72,6 +78,7 @@ public class ReceiptForm extends AppCompatActivity {
             mGallons.setText(inputReceipt.getGallons());
             mPriceGal.setText(inputReceipt.getPriceGal());
             mMiles.setText(inputReceipt.getMiles());
+            mStation.setText(inputReceipt.getStation());
         }
 
     }
@@ -209,13 +216,19 @@ public class ReceiptForm extends AppCompatActivity {
                 Integer maxText = Integer.parseInt(mMiles.getText().toString());
                 if (maxText > max) {
                     System.out.println("Success!!! Miles entered.");
+                    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                    Date date = new Date();
+                    String dateString = dateFormat.format(date);
 
                     ReceiptEntry receiptEntry = new
                             ReceiptEntry(mPrice.getText().toString(),
                             mGallons.getText().toString(),
                             mPriceGal.getText().toString(),
                             mMiles.getText().toString(),
-                            "unassigned");
+                            "unassigned",
+                            dateString,
+                            mStation.getText().toString()
+                            );
 
                     myRef.push().setValue(receiptEntry);
                     //GO BACK TO MAIN MENU:

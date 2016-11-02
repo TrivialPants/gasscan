@@ -110,18 +110,21 @@
         android:layout_alignBottom="@+id/receiptPriceGal"
         android:layout_alignLeft="@+id/receiptGallonsText"
         android:layout_alignStart="@+id/receiptGallonsText"
-        android:text="3" />
+        android:text="3"
+        android:editable="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/receiptGasStationText"
+        android:inputType="text"
         android:layout_above="@+id/receiptMiles"
         android:layout_alignRight="@+id/drawer_layout"
         android:layout_alignEnd="@+id/drawer_layout"
         android:layout_toRightOf="@+id/receiptGasStation"
         android:layout_toEndOf="@+id/receiptGasStation"
-        android:editable="false" />
+        android:editable="true"
+        android:layout_alignParentEnd="false" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -156,8 +159,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_toEndOf="@+id/receiptMilesText"
+        android:layout_toRightOf="@+id/receiptMilesText">
 
         <ListView
             android:id="@+id/navList"

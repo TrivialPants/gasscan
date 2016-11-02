@@ -15,16 +15,29 @@ public class ReceiptEntry implements Serializable{
     private String priceGal;
     private String miles;
     private String key;
+    private String date;
+    private String station;
 
     public ReceiptEntry() {
     }
 
+    public ReceiptEntry (String price, String gallons, String priceGal, String miles, String key, String date, String station){
+        this.price = price;
+        this.gallons = gallons;
+        this.priceGal = priceGal;
+        this.miles = miles;
+        this.key = key;
+        this.date = date;
+        this.station = station;
+    }
     public ReceiptEntry(String price, String gallons, String priceGal, String miles, String key) {
         this.price = price;
         this.gallons = gallons;
         this.priceGal = priceGal;
         this.miles = miles;
         this.key = key;
+        this.date = "unassigned";
+        this.station = "unassigned";
     }
 
     public String getPrice() {
@@ -61,5 +74,21 @@ public class ReceiptEntry implements Serializable{
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getStation() {
+        return station;
+    }
+
+    public void setStation(String station) {
+        this.station = station;
     }
 }
