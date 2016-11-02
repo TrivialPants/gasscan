@@ -391,28 +391,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     public void performCalculations(ReceiptEntry currentReceipt, receiptTotals mainInformation){
-                      /*  System.out.println("****Current Receipt*****:" +
-                        "\nMiles on odometer " + currentReceipt.getMiles() +
-                                "\nPrice/gal " + currentReceipt.getPriceGal() +
-                                "\nGallons " + currentReceipt.getGallons() +
-                                "\nPrice " + currentReceipt.getPrice() +
-                                "\nKey " + currentReceipt.getKey());
 
-                        System.out.println("*****Current TOTALS*****:" +
-                                "\nMiles " + mainInformation.getMiles() +
-                                "\nlast Key " + mainInformation.getKey() +
-                                "\ngallons " + mainInformation.getGallons() +
-                                "\nprice " + mainInformation.getPrice() +
-                                "\npriceGal " + mainInformation.getPriceGal() +
-                                "\nMPG " + mainInformation.getMPG() +
-                                "\n***Deltas****" +
-                                "\ndeltaMiles " + mainInformation.getDeltaMiles() +
-                                "\ndeltaPrice " + mainInformation.getDeltaPrice() +
-                                "\ndeltaPriceGal " + mainInformation.getDeltaPrice() +
-                                "\ndeltaGal " + mainInformation.getDeltaGal() +
-                                "\ndeltaMPG " + mainInformation.getMPG() +
-                                "\nBase Mileage " + mainInformation.getBaseMiles());
-                        */
 
                         System.out.println("**********************************\n" +
                                             "currentKey: " + currentReceipt.getKey() +
@@ -421,18 +400,12 @@ public class MainActivity extends AppCompatActivity {
                         //Perform calculations:
                         if(mainInformation.getBaseMiles().equals("0")) {  //Should only set for first ever receipt. After this will have value in DB
                             mainInformation.setBaseMiles(currentReceipt.getMiles());
-                            mainInformation.setMiles(currentReceipt.getMiles());
+                            //mainInformation.setMiles(currentReceipt.getMiles());
                         }
                         else {
-                            System.out.println(currentReceipt.getMiles() + "-" + mainInformation.getMiles());
-                            mainInformation.setDeltaMiles( //calculatable miles
-                                    Integer.toString(Integer.parseInt(currentReceipt.getMiles()) -
-                                            Integer.parseInt(mainInformation.getMiles()))
-                            );
-                            System.out.println(mainInformation.getDeltaMiles() + "+" + mainInformation.getBaseMiles());
+                            System.out.println(currentReceipt.getMiles() + "-" + mainInformation.getBaseMiles());
                             mainInformation.setMiles(    //Miles total driven since app.
-                                    Integer.toString(Integer.parseInt(mainInformation.getDeltaMiles())+
-                                            Integer.parseInt(mainInformation.getMiles()) -
+                                    Integer.toString(Integer.parseInt(currentReceipt.getMiles())-
                                             Integer.parseInt(mainInformation.getBaseMiles()))
                             );
                         }
@@ -448,16 +421,8 @@ public class MainActivity extends AppCompatActivity {
                         mainInformation.setGallons(
                                 Double.toString(Double.parseDouble(mainInformation.getDeltaGal()) +
                                        Double.parseDouble(mainInformation.getGallons()))
-                               // Double.toString(Double.parseDouble())
                         );
 
-
-                        if(!mainInformation.getDeltaMiles().equals("0") || !mainInformation.getDeltaGal().equals("0")){
-                            mainInformation.setDeltaMPG(
-                                    Double.toString(Double.parseDouble(mainInformation.getDeltaMiles()) /
-                                    Double.parseDouble(mainInformation.getDeltaGal()))
-                            );
-                        }
 
                         if(!mainInformation.getMiles().equals("0") || !mainInformation.getGallons().equals("0")){
                             mainInformation.setMPG(

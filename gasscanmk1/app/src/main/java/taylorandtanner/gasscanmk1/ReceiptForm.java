@@ -183,18 +183,17 @@ public class ReceiptForm extends AppCompatActivity {
         final String[] maxMiles1 = {"unassigned"};
         final String[] maxMiles2 = {"unassigned"};
 
-        mainRef.addValueEventListener(new ValueEventListener() {
+        mainRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
+                // String value = dataSnapshot.getValue(String.class);
                 maxMiles1[0] = dataSnapshot.child("miles").getValue().toString();
                 maxMiles2[0] = dataSnapshot.child("baseMiles").getValue().toString();
 
                 pushToFB(maxMiles1[0], maxMiles2[0]);
             }
-
 
 
             @Override
@@ -203,24 +202,33 @@ public class ReceiptForm extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
 
-            public void pushToFB(String maxMiles1, String maxMiles2){
-                //if(Integer.parseInt(mMiles.getText().toString()) > maxMiles){
-                System.out.println("Breach: " + maxMiles1 + "+" + maxMiles2 + " is less than " + mMiles.getText());
+            public void pushToFB(String maxMiles1, String maxMiles2) {
+                Integer max1Int = Integer.parseInt(maxMiles1);
+                Integer max2Int = Integer.parseInt(maxMiles2);
+                Integer max = max1Int + max2Int;
+                Integer maxText = Integer.parseInt(mMiles.getText().toString());
+                if (maxText > max) {
+                    System.out.println("Success!!! Miles entered.");
 
-                ReceiptEntry receiptEntry = new
-                        ReceiptEntry(mPrice.getText().toString(),
-                        mGallons.getText().toString(),
-                        mPriceGal.getText().toString(),
-                        mMiles.getText().toString(),
-                        "unassigned");
+                    ReceiptEntry receiptEntry = new
+                            ReceiptEntry(mPrice.getText().toString(),
+                            mGallons.getText().toString(),
+                            mPriceGal.getText().toString(),
+                            mMiles.getText().toString(),
+                            "unassigned");
 
-                myRef.push().setValue(receiptEntry);
-                //GO BACK TO MAIN MENU:
-                Intent myIntent = new Intent(view.getContext(), MainActivity.class);
-                startActivityForResult(myIntent, 0);
+                    myRef.push().setValue(receiptEntry);
+                    //GO BACK TO MAIN MENU:
+                    Intent myIntent = new Intent(view.getContext(), MainActivity.class);
+                    startActivityForResult(myIntent, 0);
+                }
+                else {
+                    System.out.println("NOPE!!! miles is less than current max");
+                    System.out.println("Text view: " + mMiles.getText().toString());
+                    System.out.println("Firebase: " + max1Int + " + " + max2Int +" " + " (" + max + ")");
+                }
             }
         });
-
        /* //if(Integer.parseInt(mMiles.getText().toString()) > maxMiles){
             System.out.println("Breach: " + maxMiles1[0] + "+" + maxMiles2[0] + " is less than " + mMiles.getText());
 
@@ -235,6 +243,6 @@ public class ReceiptForm extends AppCompatActivity {
         //GO BACK TO MAIN MENU:
         Intent myIntent = new Intent(view.getContext(), MainActivity.class);
         startActivityForResult(myIntent, 0);*/
-    }
+        //});
 
-}
+    }}
