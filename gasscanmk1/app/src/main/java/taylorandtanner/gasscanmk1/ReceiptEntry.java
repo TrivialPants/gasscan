@@ -30,6 +30,15 @@ public class ReceiptEntry implements Serializable{
         this.date = date;
         this.station = station;
     }
+    public ReceiptEntry (String price, String gallons, String priceGal, String miles, String key, String station){
+        this.price = price;
+        this.gallons = gallons;
+        this.priceGal = priceGal;
+        this.miles = miles;
+        this.key = key;
+        this.date = date;
+        this.station = station;
+    }
     public ReceiptEntry(String price, String gallons, String priceGal, String miles, String key) {
         this.price = price;
         this.gallons = gallons;

@@ -112,9 +112,9 @@ public final class OcrCaptureActivity extends AppCompatActivity{
                 String outputPriceGal = ((TextView)findViewById(R.id.forPriceGal)).getText().toString();
                 String outputMileage = ((TextView)findViewById(R.id.forMileage)).getText().toString();
                 String outputPrice = ((TextView)findViewById(R.id.forPrice)).getText().toString();
-
+                String outputStation = ((TextView)findViewById(R.id.forStation)).getText().toString();
                 ReceiptEntry outputReceipt = new ReceiptEntry(outputPrice, outputGal, outputPriceGal,
-                                                                outputMileage, "unassigned");
+                                                                outputMileage, "unassigned", outputStation);
 
                 SerializeMethod(outputReceipt);
                // Intent activityChangeIntent = new Intent(OcrCaptureActivity.this, ReceiptForm.class);
@@ -140,43 +140,52 @@ public final class OcrCaptureActivity extends AppCompatActivity{
             public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
                 // TODO Auto-generated method stub
 
+                TextView t1 = (TextView) findViewById(R.id.forStation);
                 TextView t2 = (TextView) findViewById(R.id.forPrice);
                 TextView t3 = (TextView) findViewById(R.id.forGallons);
                 TextView t4 = (TextView) findViewById(R.id.forPriceGal);
                 TextView t5 = (TextView) findViewById(R.id.forMileage);
 
 
-                if(seekBar.getProgress() >= 0 && seekBar.getProgress() < 25){
+                if(seekBar.getProgress() >= 0 && seekBar.getProgress() < 20){
+                    t1.setTextColor(Color.RED);
+                    //Set others black
+                    t3.setTextColor(Color.BLACK);
+                    t4.setTextColor(Color.BLACK);
+                    t5.setTextColor(Color.BLACK);
+                    t2.setTextColor(Color.BLACK);
+                }
+                if(seekBar.getProgress() >= 20 && seekBar.getProgress() < 40){
                     t2.setTextColor(Color.RED);
                     //Set others black
                     t3.setTextColor(Color.BLACK);
                     t4.setTextColor(Color.BLACK);
                     t5.setTextColor(Color.BLACK);
-
+                    t1.setTextColor(Color.BLACK);
                 }
-                else if(seekBar.getProgress() >= 25 && seekBar.getProgress() < 50){
+                else if(seekBar.getProgress() >= 40 && seekBar.getProgress() < 60){
                     t3.setTextColor(Color.RED);
                     //Set others black
                     t2.setTextColor(Color.BLACK);
                     t4.setTextColor(Color.BLACK);
                     t5.setTextColor(Color.BLACK);
-
+                    t1.setTextColor(Color.BLACK);
                 }
-                else if(seekBar.getProgress() >= 50 && seekBar.getProgress() < 75){
+                else if(seekBar.getProgress() >= 60 && seekBar.getProgress() < 80){
                     t4.setTextColor(Color.RED);
                     //Set others black
                     t2.setTextColor(Color.BLACK);
                     t3.setTextColor(Color.BLACK);
                     t5.setTextColor(Color.BLACK);
-
+                    t1.setTextColor(Color.BLACK);
                 }
-                else if(seekBar.getProgress() >= 75 && seekBar.getProgress() <= 100){
+                else if(seekBar.getProgress() >= 80 && seekBar.getProgress() <= 100){
                     t5.setTextColor(Color.RED);
                     //Set others black
                     t2.setTextColor(Color.BLACK);
                     t4.setTextColor(Color.BLACK);
                     t3.setTextColor(Color.BLACK);
-
+                    t1.setTextColor(Color.BLACK);
                 }
 
 
@@ -465,13 +474,16 @@ public final class OcrCaptureActivity extends AppCompatActivity{
                     int comparison = Color.RED;
                     String storage = text.getValue();
 
+                    TextView t1 = (TextView) findViewById(R.id.forStation);
                     TextView t2 = (TextView) findViewById(R.id.forPrice);
                     TextView t3 = (TextView) findViewById(R.id.forGallons);
                     TextView t4 = (TextView) findViewById(R.id.forPriceGal);
                     TextView t5 = (TextView) findViewById(R.id.forMileage);
 
-
-                    if(t2.getCurrentTextColor() == comparison){
+                    if(t1.getCurrentTextColor() == comparison){
+                        t1.setText(storage);
+                    }
+                    else if(t2.getCurrentTextColor() == comparison){
                         t2.setText(storage);
                     }
                     else if(t3.getCurrentTextColor() == comparison){

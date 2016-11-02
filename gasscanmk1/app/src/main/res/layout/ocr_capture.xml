@@ -12,11 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="380dp">
 
-        <taylorandtanner.gasscanmk1.ui.camera.GraphicOverlay
-            android:id="@+id/graphicOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
     </taylorandtanner.gasscanmk1.ui.camera.CameraSourcePreview>
 
     <Button
@@ -131,5 +126,31 @@
         android:layout_above="@+id/forMileage"
         android:layout_toLeftOf="@+id/forMileage"
         android:layout_toStartOf="@+id/forMileage" />
+
+    <taylorandtanner.gasscanmk1.ui.camera.GraphicOverlay
+        android:id="@+id/graphicOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/button3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Station:"
+        android:id="@+id/textView32"
+        android:layout_below="@+id/forGallons"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:id="@+id/forStation"
+        android:textSize="10dp"
+        android:layout_below="@+id/textView32"
+        android:layout_toLeftOf="@+id/forGallons" />
 
 </RelativeLayout>
