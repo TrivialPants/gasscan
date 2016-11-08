@@ -178,7 +178,7 @@ public final class OcrCaptureActivity extends AppCompatActivity{
                     if(t1.getText().toString().equals("00"))
                         t1.setTextColor(Color.RED);
                     else
-                        t1.setTextColor(Color.GREEN);
+                        t1.setTextColor(Color.BLUE);
                     t1a.setTextColor(Color.BLACK);
                     //Set others black
                     t3.setTextColor(Color.argb(0,0,0,0));
@@ -194,7 +194,7 @@ public final class OcrCaptureActivity extends AppCompatActivity{
                     if(t2.getText().toString().equals("00"))
                         t2.setTextColor(Color.RED);
                     else
-                        t2.setTextColor(Color.GREEN);
+                        t2.setTextColor(Color.BLUE);
                     t2a.setTextColor(Color.BLACK);
                     //Set others black
                     t3.setTextColor(Color.argb(0,0,0,0));
@@ -210,7 +210,7 @@ public final class OcrCaptureActivity extends AppCompatActivity{
                     if(t3.getText().toString().equals("00"))
                         t3.setTextColor(Color.RED);
                     else
-                        t3.setTextColor(Color.GREEN);
+                        t3.setTextColor(Color.BLUE);
                     t3a.setTextColor(Color.BLACK);
                     //Set others black
                     t2.setTextColor(Color.argb(0,0,0,0));
@@ -226,7 +226,7 @@ public final class OcrCaptureActivity extends AppCompatActivity{
                     if(t4.getText().toString().equals("00"))
                         t4.setTextColor(Color.RED);
                     else
-                        t4.setTextColor(Color.GREEN);
+                        t4.setTextColor(Color.BLUE);
                     t4a.setTextColor(Color.BLACK);
                     //Set others black
                     t2.setTextColor(Color.argb(0,0,0,0));
@@ -242,7 +242,7 @@ public final class OcrCaptureActivity extends AppCompatActivity{
                     if(t5.getText().toString().equals("00"))
                         t5.setTextColor(Color.RED);
                     else
-                        t5.setTextColor(Color.GREEN);
+                        t5.setTextColor(Color.BLUE);
                     t5a.setTextColor(Color.BLACK);
                     //Set others black
                     t2.setTextColor(Color.argb(0,0,0,0));

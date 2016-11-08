@@ -77,7 +77,8 @@
         android:id="@+id/textView4"
         android:layout_alignBottom="@+id/gallons"
         android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6" />
+        android:layout_alignStart="@+id/textView6"
+        android:textSize="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -89,7 +90,8 @@
         android:layout_alignLeft="@+id/textView6"
         android:layout_alignStart="@+id/textView6"
         android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false" />
+        android:layout_alignParentStart="false"
+        android:textSize="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -99,8 +101,7 @@
         android:editable="false"
         android:layout_alignBottom="@+id/miles"
 
-        />
-
+        android:textSize="30dp" />
 
 
 
@@ -110,9 +111,10 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toStartOf="@+id/mpg"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/textView11"
+        android:layout_alignRight="@+id/textView31"
+        android:layout_alignEnd="@+id/textView31">
 
         <ListView
             android:id="@+id/navList"
@@ -123,6 +125,5 @@
             android:choiceMode="singleChoice"
             android:alpha="100" />
     </android.support.v4.widget.DrawerLayout>
-
 
 </RelativeLayout>
