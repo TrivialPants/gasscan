@@ -101,6 +101,28 @@ public final class OcrCaptureActivity extends AppCompatActivity{
             }
 
         });
+        TextView tv1 = (TextView) findViewById(R.id.forStation);
+        TextView tv1a = (TextView) findViewById(R.id.station);
+        TextView tv2 = (TextView) findViewById(R.id.forPrice);
+        TextView tv2a = (TextView) findViewById(R.id.totalPrice);
+        TextView tv3 = (TextView) findViewById(R.id.forGallons);
+        TextView tv3a = (TextView) findViewById(R.id.gallons);
+        TextView tv4 = (TextView) findViewById(R.id.forPriceGal);
+        TextView tv4a = (TextView) findViewById(R.id.priceGal);
+        TextView tv5 = (TextView) findViewById(R.id.forMileage);
+        TextView tv5a = (TextView) findViewById(R.id.mileage);
+
+        tv1.setTextColor(Color.RED);
+        tv1a.setTextColor(Color.BLACK);
+        //Set others black
+        tv3.setTextColor(Color.argb(0,0,0,0));
+        tv4.setTextColor(Color.argb(0,0,0,0));
+        tv5.setTextColor(Color.argb(0,0,0,0));
+        tv2.setTextColor(Color.argb(0,0,0,0));
+        tv3a.setTextColor(Color.argb(0,0,0,0));
+        tv4a.setTextColor(Color.argb(0,0,0,0));
+        tv5a.setTextColor(Color.argb(0,0,0,0));
+        tv2a.setTextColor(Color.argb(0,0,0,0));
 
         final Button acceptOCRButton = (Button)findViewById(R.id.acceptOCRButton);
         acceptOCRButton.setOnClickListener(new View.OnClickListener() {
@@ -141,51 +163,96 @@ public final class OcrCaptureActivity extends AppCompatActivity{
                 // TODO Auto-generated method stub
 
                 TextView t1 = (TextView) findViewById(R.id.forStation);
+                TextView t1a = (TextView) findViewById(R.id.station);
                 TextView t2 = (TextView) findViewById(R.id.forPrice);
+                TextView t2a = (TextView) findViewById(R.id.totalPrice);
                 TextView t3 = (TextView) findViewById(R.id.forGallons);
+                TextView t3a = (TextView) findViewById(R.id.gallons);
                 TextView t4 = (TextView) findViewById(R.id.forPriceGal);
+                TextView t4a = (TextView) findViewById(R.id.priceGal);
                 TextView t5 = (TextView) findViewById(R.id.forMileage);
+                TextView t5a = (TextView) findViewById(R.id.mileage);
 
 
                 if(seekBar.getProgress() >= 0 && seekBar.getProgress() < 20){
-                    t1.setTextColor(Color.RED);
+                    if(t1.getText().toString().equals("00"))
+                        t1.setTextColor(Color.RED);
+                    else
+                        t1.setTextColor(Color.GREEN);
+                    t1a.setTextColor(Color.BLACK);
                     //Set others black
-                    t3.setTextColor(Color.BLACK);
-                    t4.setTextColor(Color.BLACK);
-                    t5.setTextColor(Color.BLACK);
-                    t2.setTextColor(Color.BLACK);
+                    t3.setTextColor(Color.argb(0,0,0,0));
+                    t4.setTextColor(Color.argb(0,0,0,0));
+                    t5.setTextColor(Color.argb(0,0,0,0));
+                    t2.setTextColor(Color.argb(0,0,0,0));
+                    t3a.setTextColor(Color.argb(0,0,0,0));
+                    t4a.setTextColor(Color.argb(0,0,0,0));
+                    t5a.setTextColor(Color.argb(0,0,0,0));
+                    t2a.setTextColor(Color.argb(0,0,0,0));
                 }
                 if(seekBar.getProgress() >= 20 && seekBar.getProgress() < 40){
-                    t2.setTextColor(Color.RED);
+                    if(t2.getText().toString().equals("00"))
+                        t2.setTextColor(Color.RED);
+                    else
+                        t2.setTextColor(Color.GREEN);
+                    t2a.setTextColor(Color.BLACK);
                     //Set others black
-                    t3.setTextColor(Color.BLACK);
-                    t4.setTextColor(Color.BLACK);
-                    t5.setTextColor(Color.BLACK);
-                    t1.setTextColor(Color.BLACK);
+                    t3.setTextColor(Color.argb(0,0,0,0));
+                    t4.setTextColor(Color.argb(0,0,0,0));
+                    t5.setTextColor(Color.argb(0,0,0,0));
+                    t1.setTextColor(Color.argb(0,0,0,0));
+                    t3a.setTextColor(Color.argb(0,0,0,0));
+                    t4a.setTextColor(Color.argb(0,0,0,0));
+                    t5a.setTextColor(Color.argb(0,0,0,0));
+                    t1a.setTextColor(Color.argb(0,0,0,0));
                 }
                 else if(seekBar.getProgress() >= 40 && seekBar.getProgress() < 60){
-                    t3.setTextColor(Color.RED);
+                    if(t3.getText().toString().equals("00"))
+                        t3.setTextColor(Color.RED);
+                    else
+                        t3.setTextColor(Color.GREEN);
+                    t3a.setTextColor(Color.BLACK);
                     //Set others black
-                    t2.setTextColor(Color.BLACK);
-                    t4.setTextColor(Color.BLACK);
-                    t5.setTextColor(Color.BLACK);
-                    t1.setTextColor(Color.BLACK);
+                    t2.setTextColor(Color.argb(0,0,0,0));
+                    t4.setTextColor(Color.argb(0,0,0,0));
+                    t5.setTextColor(Color.argb(0,0,0,0));
+                    t1.setTextColor(Color.argb(0,0,0,0));
+                    t2a.setTextColor(Color.argb(0,0,0,0));
+                    t4a.setTextColor(Color.argb(0,0,0,0));
+                    t5a.setTextColor(Color.argb(0,0,0,0));
+                    t1a.setTextColor(Color.argb(0,0,0,0));
                 }
                 else if(seekBar.getProgress() >= 60 && seekBar.getProgress() < 80){
-                    t4.setTextColor(Color.RED);
+                    if(t4.getText().toString().equals("00"))
+                        t4.setTextColor(Color.RED);
+                    else
+                        t4.setTextColor(Color.GREEN);
+                    t4a.setTextColor(Color.BLACK);
                     //Set others black
-                    t2.setTextColor(Color.BLACK);
-                    t3.setTextColor(Color.BLACK);
-                    t5.setTextColor(Color.BLACK);
-                    t1.setTextColor(Color.BLACK);
+                    t2.setTextColor(Color.argb(0,0,0,0));
+                    t3.setTextColor(Color.argb(0,0,0,0));
+                    t5.setTextColor(Color.argb(0,0,0,0));
+                    t1.setTextColor(Color.argb(0,0,0,0));
+                    t2a.setTextColor(Color.argb(0,0,0,0));
+                    t3a.setTextColor(Color.argb(0,0,0,0));
+                    t5a.setTextColor(Color.argb(0,0,0,0));
+                    t1a.setTextColor(Color.argb(0,0,0,0));
                 }
                 else if(seekBar.getProgress() >= 80 && seekBar.getProgress() <= 100){
-                    t5.setTextColor(Color.RED);
+                    if(t5.getText().toString().equals("00"))
+                        t5.setTextColor(Color.RED);
+                    else
+                        t5.setTextColor(Color.GREEN);
+                    t5a.setTextColor(Color.BLACK);
                     //Set others black
-                    t2.setTextColor(Color.BLACK);
-                    t4.setTextColor(Color.BLACK);
-                    t3.setTextColor(Color.BLACK);
-                    t1.setTextColor(Color.BLACK);
+                    t2.setTextColor(Color.argb(0,0,0,0));
+                    t4.setTextColor(Color.argb(0,0,0,0));
+                    t3.setTextColor(Color.argb(0,0,0,0));
+                    t1.setTextColor(Color.argb(0,0,0,0));
+                    t2a.setTextColor(Color.argb(0,0,0,0));
+                    t4a.setTextColor(Color.argb(0,0,0,0));
+                    t3a.setTextColor(Color.argb(0,0,0,0));
+                    t1a.setTextColor(Color.argb(0,0,0,0));
                 }
 
 

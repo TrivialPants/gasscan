@@ -418,10 +418,7 @@ public class MainActivity extends AppCompatActivity {
 
                         mainInformation.setDeltaGal(currentReceipt.getGallons());
 
-                        mainInformation.setGallons(
-                                Double.toString(Double.parseDouble(mainInformation.getDeltaGal()) +
-                                       Double.parseDouble(mainInformation.getGallons()))
-                        );
+
 
 
                         if(!mainInformation.getMiles().equals("0") || !mainInformation.getGallons().equals("0")){
@@ -430,6 +427,11 @@ public class MainActivity extends AppCompatActivity {
                                             Double.parseDouble(mainInformation.getGallons()))
                             );
                         }
+
+                        mainInformation.setGallons(
+                                Double.toString(Double.parseDouble(mainInformation.getDeltaGal()) +
+                                        Double.parseDouble(mainInformation.getGallons()))
+                        );
                     //Set Values:
                         mainRef.setValue(mainInformation);
 
@@ -442,7 +444,11 @@ public class MainActivity extends AppCompatActivity {
                         final TextView mpgTextView = (TextView) findViewById(R.id.mpg);   //holding priceGal for now
 
                         milesTextView.setText(mainInformation.getMiles());
-                        gallonsTextView.setText(mainInformation.getGallons());
+                        gallonsTextView.setText(Double.toString(
+                                    BigDecimal.valueOf(Double.parseDouble(mainInformation.getGallons()))
+                                    .setScale(2, RoundingMode.HALF_UP).doubleValue()
+                             )
+                        );
                         mpgTextView.setText(
                                 Double.toString(
                                         BigDecimal.valueOf(Double.parseDouble(mainInformation.getMPG()))

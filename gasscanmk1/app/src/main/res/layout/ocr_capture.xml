@@ -10,7 +10,8 @@
     <taylorandtanner.gasscanmk1.ui.camera.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
-        android:layout_height="380dp">
+        android:layout_height="400dp"
+        android:layout_alignParentTop="true">
 
     </taylorandtanner.gasscanmk1.ui.camera.CameraSourcePreview>
 
@@ -28,18 +29,17 @@
         android:layout_height="wrap_content"
         android:text="00"
         android:id="@+id/forGallons"
-        android:textSize="10dp"
-        android:layout_marginRight="89dp"
-        android:layout_marginEnd="89dp"
-        android:layout_alignTop="@+id/acceptOCRButton"
-        android:layout_toLeftOf="@+id/forMileage" />
+        android:textSize="20dp"
+        android:layout_alignTop="@+id/forPrice"
+        android:layout_alignLeft="@+id/forPrice"
+        android:layout_alignStart="@+id/forPrice" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00"
         android:id="@+id/forPriceGal"
-        android:textSize="10dp"
+        android:textSize="20dp"
         android:layout_below="@+id/button3"
         android:layout_alignLeft="@+id/forMileage" />
 
@@ -48,20 +48,22 @@
         android:layout_height="wrap_content"
         android:text="00"
         android:id="@+id/forMileage"
-        android:textSize="10dp"
+        android:textSize="20dp"
         android:layout_alignTop="@+id/forGallons"
-        android:layout_alignRight="@+id/seekBar"
-        android:layout_marginRight="28dp"
-        android:layout_marginEnd="28dp" />
+        android:layout_toRightOf="@+id/gallons"
+        android:layout_toEndOf="@+id/gallons"
+        android:layout_marginLeft="77dp"
+        android:layout_marginStart="77dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/forPrice"
-        android:textSize="10dp"
+        android:textSize="20dp"
         android:text="00"
         android:layout_alignTop="@+id/forPriceGal"
-        android:layout_alignLeft="@+id/forGallons" />
+        android:layout_alignLeft="@+id/forPriceGal"
+        android:layout_alignStart="@+id/forPriceGal" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -93,9 +95,10 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Total Price:"
         android:id="@+id/totalPrice"
-        android:layout_above="@+id/forPrice"
-        android:layout_toLeftOf="@+id/forPrice"
-        android:layout_toStartOf="@+id/forPrice" />
+        android:layout_alignTop="@+id/gallons"
+        android:layout_alignRight="@+id/gallons"
+        android:layout_alignEnd="@+id/gallons"
+        android:textSize="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -103,34 +106,39 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Gallons:"
         android:id="@+id/gallons"
-        android:layout_above="@+id/forGallons"
-        android:layout_toLeftOf="@+id/forGallons"
-        android:layout_toStartOf="@+id/forGallons" />
+        android:layout_alignTop="@+id/priceGal"
+        android:layout_alignRight="@+id/station"
+        android:layout_alignEnd="@+id/station"
+        android:textSize="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Price/Gal:"
-        android:id="@+id/textView7"
-        android:layout_above="@+id/forPriceGal"
-        android:layout_toLeftOf="@+id/forPriceGal"
-        android:layout_toStartOf="@+id/forPriceGal" />
+        android:id="@+id/priceGal"
+        android:layout_alignBottom="@+id/forPriceGal"
+        android:layout_alignRight="@+id/totalPrice"
+        android:layout_alignEnd="@+id/totalPrice"
+        android:textColor="#00ffffff"
+        android:textSize="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Mileage:"
-        android:id="@+id/textView8"
-        android:layout_above="@+id/forMileage"
-        android:layout_toLeftOf="@+id/forMileage"
-        android:layout_toStartOf="@+id/forMileage" />
+        android:id="@+id/mileage"
+        android:layout_alignTop="@+id/priceGal"
+        android:layout_alignRight="@+id/gallons"
+        android:layout_alignEnd="@+id/gallons"
+        android:textSize="30dp" />
 
     <taylorandtanner.gasscanmk1.ui.camera.GraphicOverlay
         android:id="@+id/graphicOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/forGallons"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/button3" />
@@ -140,17 +148,19 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Station:"
-        android:id="@+id/textView32"
-        android:layout_below="@+id/forGallons"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/station"
+        android:layout_alignTop="@+id/priceGal"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00"
         android:id="@+id/forStation"
-        android:textSize="10dp"
-        android:layout_below="@+id/textView32"
-        android:layout_toLeftOf="@+id/forGallons" />
+        android:textSize="20dp"
+        android:layout_alignTop="@+id/forGallons"
+        android:layout_alignLeft="@+id/forGallons"
+        android:layout_alignStart="@+id/forGallons" />
 
 </RelativeLayout>
